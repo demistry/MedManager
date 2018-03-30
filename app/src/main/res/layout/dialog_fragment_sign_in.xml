@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:gravity="center_horizontal">
+
+    <EditText
+        android:id="@+id/edit_text_dialog_email"
+        android:layout_width="250dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="48dp"
+        android:padding="4dp"
+        android:background="@drawable/item_edit_text_background"
+        android:layout_marginBottom="12dp"
+        android:hint="Enter Email"
+        android:inputType="textEmailAddress"/>
+    <EditText
+        android:id="@+id/edit_text_dialog_password"
+        android:layout_width="250dp"
+        android:layout_height="40dp"
+        android:padding="4dp"
+        android:background="@drawable/item_edit_text_background"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="12dp"
+        android:hint="Enter Password"
+        android:inputType="textPassword"/>
+
+    <Button
+        android:id="@+id/button_dialog_sign_in"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:background="@drawable/item_sign_in_button_background"
+        android:layout_marginTop="32dp"
+        android:text="Login"
+        android:textColor="@color/primaryText"/>
+    <TextView
+        android:id="@+id/textview_dialog_sign_in"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:textStyle="bold"
+        android:text="@string/forgotten_password"
+
+        />
+
+</LinearLayout>

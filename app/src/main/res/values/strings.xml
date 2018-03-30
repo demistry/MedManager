@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Med Manager</string>
+    <string name="create_account">Sign In</string>
+    <string name="forgotten_password"><u>Forgotten Password?</u></string>
 </resources>
