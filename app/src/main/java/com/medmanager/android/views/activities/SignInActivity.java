@@ -24,10 +24,8 @@ import com.medmanager.android.views.fragments.SignInDialogFragment;
 /*
 * This activity is responsible for sign-in and sign up by the user*/
 
-public class SignInActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
+public class SignInActivity extends BaseActivity implements GoogleApiClient.OnConnectionFailedListener {
 
-    private FirebaseAuth mFireBaseAuthInstance;
-    private FirebaseUser mFireBaseUser;
     private FirebaseAuth.AuthStateListener mFireBaseAuthListener;
 
     private static final int RQ_SIGNIN_CODE = 100;
@@ -53,17 +51,15 @@ public class SignInActivity extends AppCompatActivity implements GoogleApiClient
         mVerifyPasswordEditText = findViewById(R.id.edit_text_password_verify);
         mSignInTextView = findViewById(R.id.textview_sign_in);
 
-        mFireBaseAuthInstance = FirebaseAuth.getInstance();
-        mFireBaseUser = mFireBaseAuthInstance.getCurrentUser();
 
-        if (mFireBaseUser !=null){
-            startActivity(new Intent(this, HomeActivity.class));
+        if (firebaseAuth.getCurrentUser() !=null){
+            startActivity(new Intent(this, MainActivity.class));
             finish();
         }
         mFireBaseAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-               if (mFireBaseUser!=null){
+               if (firebaseAuth.getCurrentUser()!=null){
 
 
                }
@@ -83,8 +79,8 @@ public class SignInActivity extends AppCompatActivity implements GoogleApiClient
         if (requestCode == RQ_SIGNIN_CODE){
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
             if (result.isSuccess()){
-                UserProfileUtils.linkToFireBase(this, result.getSignInAccount(), mFireBaseAuthInstance);
-                startActivity(new Intent(this, HomeActivity.class));
+                UserProfileUtils.linkToFireBase(this, result.getSignInAccount(), firebaseAuth);
+                startActivity(new Intent(this, MainActivity.class));
             }
             else{
                 Toast.makeText(this, "Google Sign-in failed", Toast.LENGTH_SHORT).show();
@@ -109,7 +105,7 @@ public class SignInActivity extends AppCompatActivity implements GoogleApiClient
             String passWord = mPassWordEditText.getText().toString();
             String verifiedPassWord = mVerifyPasswordEditText.getText().toString();
             if (!emailText.isEmpty() && passWord.equals(verifiedPassWord)){
-                UserProfileUtils.handleEmailSignUp(this, emailText, verifiedPassWord, mFireBaseAuthInstance);
+                UserProfileUtils.handleEmailSignUp(this, emailText, verifiedPassWord, firebaseAuth);
             }
             else {
                 if (!passWord.equals(verifiedPassWord)){

@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout_add_medication_root_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:layout_width="match_parent" android:layout_height="match_parent"
+        android:padding="16dp">
+
+
+        <EditText
+            android:id="@+id/edit_text_medication_name"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+
+
+            android:background="@drawable/item_edit_text_background"
+            android:hint="Medication Name"
+            android:textColorHighlight="@color/colorAccent"
+            android:pointerIcon="crosshair"
+            android:padding="8dp"
+            />
+        <EditText
+            android:id="@+id/edit_text_medication_description"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_marginTop="12dp"
+            android:layout_below="@id/edit_text_medication_name"
+            android:background="@drawable/item_edit_text_background"
+            android:hint="Medication Description"
+            android:padding="8dp"
+            />
+
+        <FrameLayout
+            android:id="@+id/frame_med_started"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/edit_text_medication_description"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="12dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+
+                android:text="Started Medication"
+                android:textStyle="bold"
+                android:gravity="center"/>
+            <Switch
+                android:id="@+id/switch_medication_started"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="end|center"
+                />
+        </FrameLayout>
+        <FrameLayout
+            android:id="@+id/frame_layout_start_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:layout_below="@id/frame_med_started"
+
+            android:background="@drawable/item_edit_text_background"
+            android:padding="4dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="Start Date"
+                android:gravity="center"/>
+            <TextView
+                android:id="@+id/text_start_date_picker"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+
+                android:clickable="true"
+                android:focusable="true"
+                android:drawableEnd="@drawable/ic_expand_more_black_24dp"
+                android:drawableRight="@drawable/ic_expand_more_black_24dp"
+                android:gravity="center"
+                android:text="Wed, Apr 4, 2018"
+                />
+            <TextView
+                android:id="@+id/text_start_time_picker"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="end"
+
+                android:clickable="true"
+                android:focusable="true"
+                android:drawableEnd="@drawable/ic_expand_more_black_24dp"
+                android:drawableRight="@drawable/ic_expand_more_black_24dp"
+                android:gravity="center"
+                android:text="00:00"
+                />
+        </FrameLayout>
+        <FrameLayout
+            android:id="@+id/frame_end_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:layout_below="@id/frame_layout_start_date"
+
+            android:background="@drawable/item_edit_text_background"
+            android:padding="4dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="End Date"
+                android:gravity="center"/>
+            <TextView
+                android:id="@+id/text_end_date_picker"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+
+                android:clickable="true"
+                android:focusable="true"
+                android:drawableEnd="@drawable/ic_expand_more_black_24dp"
+                android:drawableRight="@drawable/ic_expand_more_black_24dp"
+                android:gravity="center"
+                android:text="Wed, Apr 4, 2018"
+                />
+            <TextView
+                android:id="@+id/text_end_time_picker"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="end"
+
+                android:clickable="true"
+                android:focusable="true"
+                android:drawableEnd="@drawable/ic_expand_more_black_24dp"
+                android:drawableRight="@drawable/ic_expand_more_black_24dp"
+                android:gravity="center"
+                android:text="00:00"
+                />
+        </FrameLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_frequency_interval"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/frame_end_date"
+            android:layout_marginTop="32dp"
+            android:layout_marginBottom="12dp"
+
+            android:background="@drawable/item_edit_text_secondary_bg"
+            android:orientation="vertical"
+            android:padding="4dp"
+
+            >
+            <!--<FrameLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content">-->
+                <!--<TextView-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="match_parent"-->
+                    <!--android:layout_gravity="center_vertical"-->
+                    <!--android:text="Frequency"-->
+                    <!--android:textColor="@color/colorTextIcons"-->
+                    <!--android:textStyle="bold"-->
+                    <!--android:gravity="center"/>-->
+                <!--<EditText-->
+                    <!--android:id="@+id/edit_text_frequency"-->
+                    <!--android:layout_width="40dp"-->
+                    <!--android:layout_height="40dp"-->
+                    <!--android:layout_gravity="center"-->
+
+
+                    <!--android:hint="0"-->
+                    <!--android:textColor="@color/colorTextIcons"-->
+                    <!--android:textColorHint="@color/colorTextIcons"-->
+                    <!--android:inputType="number"-->
+                    <!--android:gravity="center"/>-->
+            <!--</FrameLayout>-->
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="12dp"
+                android:paddingRight="12dp"
+                android:paddingBottom="12dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_vertical"
+                    android:text="@string/medication_interval"
+                    android:textColor="@color/colorTextIcons"
+
+                    android:gravity="center"/>
+                <TextView
+                    android:id="@+id/text_interval_picker"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+
+                    android:drawableEnd="@drawable/ic_expand_more_white_24dp"
+                    android:drawableRight="@drawable/ic_expand_more_white_24dp"
+
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:gravity="center"
+                    android:text="1 hour"
+                    android:textColor="@color/colorTextIcons"
+                    />
+            </FrameLayout>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/button_add_medication"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/item_sign_in_button_background"
+            android:text="Done"/>
+
+
+    </RelativeLayout>
+
+</FrameLayout>

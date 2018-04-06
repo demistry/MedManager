@@ -1,91 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/sign_up_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
-    android:orientation="vertical"
-    android:gravity="center_horizontal"
-    android:background="@drawable/image_pill"
-    android:backgroundTint="@color/colorDividerTint"
-    android:backgroundTintMode="src_atop"
     tools:context=".views.activities.SignInActivity">
-    <EditText
-        android:id="@+id/edit_text_email"
-        android:layout_width="250dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="48dp"
-        android:padding="4dp"
-        android:background="@drawable/item_edit_text_background"
-        android:layout_marginBottom="12dp"
-        android:hint="Enter Email"
-        android:inputType="textEmailAddress"/>
-    <EditText
-        android:id="@+id/edit_text_password"
-        android:layout_width="250dp"
-        android:layout_height="40dp"
-        android:padding="4dp"
-        android:layout_below="@id/edit_text_email"
-        android:background="@drawable/item_edit_text_background"
-        android:layout_marginTop="12dp"
-        android:layout_marginBottom="12dp"
-        android:hint="Enter Password"
-        android:inputType="textPassword"/>
-    <EditText
-        android:id="@+id/edit_text_password_verify"
-        android:layout_width="250dp"
-        android:layout_height="40dp"
-        android:padding="4dp"
-        android:layout_below="@id/edit_text_password"
-        android:background="@drawable/item_edit_text_background"
-        android:layout_marginTop="12dp"
-        android:hint="Verify Password"
-        android:inputType="textPassword"/>
-    <Button
-        android:id="@+id/button_sign_in"
-        android:layout_width="250dp"
-        android:layout_height="40dp"
-        android:background="@drawable/item_sign_in_button_background"
-        android:layout_below="@id/edit_text_password_verify"
-        android:onClick="handleEmailSignUp"
-        android:layout_marginTop="48dp"
-        android:text="Sign Up"
-        android:textColor="@color/primaryText"/>
-    <TextView
-        android:id="@+id/textview_sign_in"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="end"
-        android:layout_marginTop="4dp"
-        android:layout_alignRight="@id/button_sign_in"
-        android:layout_alignEnd="@id/button_sign_in"
-        android:layout_below="@id/button_sign_in"
-        android:onClick="handleEmailSignIn"
-        android:clickable="true"
-        android:focusable="true"
-        android:textStyle="bold"
-        android:text="@string/create_account"
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="16dp"
+        android:gravity="center_horizontal"
+        android:background="@drawable/image_pill"
+        android:backgroundTint="@color/colorDividerTint"
+        android:backgroundTintMode="src_atop"
+        >
+        <EditText
+            android:id="@+id/edit_text_email"
+            android:layout_width="250dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="48dp"
+            android:padding="4dp"
+            android:background="@drawable/item_edit_text_background"
+            android:layout_marginBottom="12dp"
+            android:hint="Enter Email"
+            android:inputType="textEmailAddress"/>
+        <EditText
+            android:id="@+id/edit_text_password"
+            android:layout_width="250dp"
+            android:layout_height="40dp"
+            android:padding="4dp"
+            android:layout_below="@id/edit_text_email"
+            android:background="@drawable/item_edit_text_background"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="12dp"
+            android:hint="Enter Password"
+            android:inputType="textPassword"/>
+        <EditText
+            android:id="@+id/edit_text_password_verify"
+            android:layout_width="250dp"
+            android:layout_height="40dp"
+            android:padding="4dp"
+            android:layout_below="@id/edit_text_password"
+            android:background="@drawable/item_edit_text_background"
+            android:layout_marginTop="12dp"
+            android:hint="Verify Password"
+            android:inputType="textPassword"/>
+        <Button
+            android:id="@+id/button_sign_in"
+            android:layout_width="250dp"
+            android:layout_height="40dp"
+            android:background="@drawable/item_sign_in_button_background"
+            android:layout_below="@id/edit_text_password_verify"
+            android:onClick="handleEmailSignUp"
+            android:layout_marginTop="48dp"
+            android:text="Sign Up"
+            android:textColor="@color/primaryText"/>
+        <TextView
+            android:id="@+id/textview_sign_in"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginTop="4dp"
+            android:layout_alignRight="@id/button_sign_in"
+            android:layout_alignEnd="@id/button_sign_in"
+            android:layout_below="@id/button_sign_in"
+            android:onClick="handleEmailSignIn"
+            android:clickable="true"
+            android:focusable="true"
+            android:textStyle="bold"
+            android:text="@string/create_account"
 
-         />
+            />
 
-    <Button
-        android:id="@+id/button_sign_up"
-        android:layout_width="250dp"
-        android:layout_height="40dp"
-        android:background="@drawable/item_signup_button_background"
-        android:paddingLeft="4dp"
-        android:paddingStart="4dp"
-        android:onClick="handleGoogleSignUp"
-        android:gravity="center"
-        android:text="Google Sign In"
-        android:drawableLeft="@drawable/googleg_disabled_color_18"
-        android:layout_marginBottom="12dp"
-        android:layout_alignParentBottom="true"
-        android:drawableStart="@drawable/googleg_disabled_color_18" />
-
-
+        <Button
+            android:id="@+id/button_sign_up"
+            android:layout_width="250dp"
+            android:layout_height="40dp"
+            android:background="@drawable/item_signup_button_background"
+            android:paddingLeft="4dp"
+            android:paddingStart="4dp"
+            android:onClick="handleGoogleSignUp"
+            android:gravity="center"
+            android:text="Google Sign In"
+            android:drawableLeft="@drawable/googleg_disabled_color_18"
+            android:layout_marginBottom="12dp"
+            android:layout_alignParentBottom="true"
+            android:drawableStart="@drawable/googleg_disabled_color_18" />
 
 
-</RelativeLayout>
+
+
+
+
+    </RelativeLayout>
+</FrameLayout>
+

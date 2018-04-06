@@ -7,4 +7,5 @@
     <color name="colorTextIcons">#FFFFFF</color>
     <color name="primaryText">#212121</color>
     <color name="colorDividerTint">#7FBDBDBD</color>
+    <color name="colorAccentSecondary">#0097a7</color>
 </resources>

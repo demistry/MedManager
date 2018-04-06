@@ -7,7 +7,6 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
 import android.widget.Toast;
 
-import com.google.android.gms.auth.GoogleAuthException;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -19,7 +18,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.medmanager.android.R;
-import com.medmanager.android.views.activities.HomeActivity;
+import com.medmanager.android.views.activities.MainActivity;
 import com.medmanager.android.views.activities.SignInActivity;
 
 /**
@@ -46,7 +45,7 @@ public class UserProfileUtils {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 Toast.makeText(context, "completed custom sign-in", Toast.LENGTH_SHORT).show();
-                context.startActivity(new Intent(context, HomeActivity.class));
+                context.startActivity(new Intent(context, MainActivity.class));
                 ((Activity) context).finish();
 
                 if (!task.isSuccessful()){
@@ -61,7 +60,7 @@ public class UserProfileUtils {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         Toast.makeText(signInActivity, "Account created, please sign in", Toast.LENGTH_SHORT).show();
-                        signInActivity.startActivity(new Intent(signInActivity, HomeActivity.class ));
+                        signInActivity.startActivity(new Intent(signInActivity, MainActivity.class ));
                         signInActivity.finish();
                     }
                 });

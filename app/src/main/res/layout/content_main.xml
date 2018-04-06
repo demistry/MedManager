@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.medmanager.android.views.activities.MainActivity"
+    tools:showIn="@layout/app_bar_main">
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar_tab_layout"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorPrimary"
+        >
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tab_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorPrimary"
+            android:elevation="6dp"
+            app:tabMode="fixed"
+            app:tabIndicatorHeight="3dp"
+            app:tabIndicatorColor="#fff"
+            app:tabTextColor="@color/colorPrimaryLight"
+            app:tabSelectedTextColor="#fff"
+            app:tabTextAppearance="@style/TabLayoutTextStyle"
+
+        />
+
+    </android.support.v7.widget.Toolbar>
+    <android.support.v4.view.ViewPager
+        android:id="@+id/view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/toolbar_tab_layout">
+
+    </android.support.v4.view.ViewPager>
+
+</RelativeLayout>
