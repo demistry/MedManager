@@ -38,6 +38,8 @@ public class TimePickerFragment extends BaseFragment {
     private TimePickedInterface timePickedInterface;
     private RemoveTimeFragmentInterface removeTimeFragmentInterface;
 
+    private int fragmentType;
+
 
 
     public TimePickerFragment(){
@@ -65,6 +67,8 @@ public class TimePickerFragment extends BaseFragment {
         mTimePicker = view.findViewById(R.id.time_picker);
         mSaveTimeTextView = view.findViewById(R.id.text_time_picked);
 
+        fragmentType = getArguments().getInt("Args");
+
 //        if (date!=null){
 //            mTimePicker.setCurrentHour(date.getHours());
 //            mTimePicker.setCurrentMinute(date.getMinutes());
@@ -77,7 +81,9 @@ public class TimePickerFragment extends BaseFragment {
                     public void onClick(View v) {
                         mCalendar =  new GregorianCalendar(0, 0, 0, mTimePicker.getCurrentHour(), mTimePicker.getCurrentMinute());
                         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm", Locale.ENGLISH);
-                        timePickedInterface.timePicked(simpleDateFormat.format(mCalendar.getTime()),  mTimePicker.getCurrentHour(), mTimePicker.getCurrentMinute());
+                        if (fragmentType == 0)
+                            timePickedInterface.timePicked(simpleDateFormat.format(mCalendar.getTime()),  mTimePicker.getCurrentHour(), mTimePicker.getCurrentMinute());
+                        else timePickedInterface.endTimePicked(simpleDateFormat.format(mCalendar.getTime()), mTimePicker.getCurrentHour(), mTimePicker.getCurrentMinute());
                         Toast.makeText(getContext(), "Time picked is "+ simpleDateFormat.format(mCalendar.getTime()), Toast.LENGTH_SHORT).show();
                         removeTimeFragmentInterface.timeFragmentRemoved();
                     }
@@ -89,6 +95,7 @@ public class TimePickerFragment extends BaseFragment {
     //this interface responds to the click event of the done text-view
     public interface TimePickedInterface{
         void timePicked(String timeText, int timeHour, int timeMinute);
+        void endTimePicked(String timeText, int timeHour, int timeMinute);
     }
     public interface RemoveTimeFragmentInterface{
         void timeFragmentRemoved();

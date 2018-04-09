@@ -10,6 +10,7 @@ import static android.arch.persistence.room.OnConflictStrategy.REPLACE;
 
 /**
  * Created by ILENWABOR DAVID on 01/04/2018.
+ * Inspiration
  */
 
 
@@ -19,6 +20,9 @@ public interface MedicationDAO {
     @Query("SELECT * FROM MedInfo")
     List<MedInfo> getAllMedications();
 
+    @Query("SELECT * FROM MedInfo WHERE isMedicationStarted LIKE :isMedicationStarted ")
+    List<MedInfo> getActiveMedications(boolean isMedicationStarted);
+
     @Insert(onConflict = REPLACE)
-    void insertMedInfo(List<MedInfo> medInfos);
+    void insertMedInfo(MedInfo medInfos);
 }

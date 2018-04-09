@@ -21,6 +21,8 @@ import android.widget.TextView;
 
 import com.medmanager.android.R;
 import com.medmanager.android.presenter.adapter.MedViewPagerAdapter;
+import com.medmanager.android.presenter.viewpresenters.ActiveMedFragmentPresenter;
+import com.medmanager.android.presenter.viewpresenters.NotificationPresenter;
 
 public class MainActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -42,9 +44,13 @@ public class MainActivity extends BaseActivity
         mTabLayout = findViewById(R.id.tab_layout);
         mViewPager = findViewById(R.id.view_pager);
 
-        mTabLayout.addTab(mTabLayout.newTab().setText("All Medications"));
-        mTabLayout.addTab(mTabLayout.newTab().setText("Active Medications"));
-        mTabLayout.addTab(mTabLayout.newTab().setText("Monthly Medications"));
+        NotificationPresenter.sendNotification(this);
+
+        new ActiveMedFragmentPresenter(this).loadActiveMedications();
+
+        mTabLayout.addTab(mTabLayout.newTab().setText("All"));
+        mTabLayout.addTab(mTabLayout.newTab().setText("Active"));
+        mTabLayout.addTab(mTabLayout.newTab().setText("Monthly"));
 
         mViewPager.setAdapter(new MedViewPagerAdapter(getSupportFragmentManager(), mTabLayout.getTabCount()));
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mTabLayout));
@@ -148,6 +154,7 @@ public class MainActivity extends BaseActivity
     }
 
     public void handleNewMedication(View view) {
+
         startActivity(new Intent(this, AddMedicationActivity.class));
     }
 }

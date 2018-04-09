@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/relative_layout_med_category"
+    android:layout_width="match_parent"
+    android:layout_height="72dp"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/text_med_category_avatar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/item_circle_med_text_bg"
+        android:fontFamily="sans-serif-condensed"
+        android:gravity="center"
+        android:text="A"
+        android:textAllCaps="true"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+        android:textColor="#fff"
+        android:textSize="32sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/text_med_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:gravity="top"
+        android:text="Aspirin"
+        android:textAlignment="gravity"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+        android:textSize="32sp"
+        app:layout_constraintStart_toStartOf="parent"
+        android:paddingLeft="72dp"
+        android:paddingRight="16dp"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!--<LinearLayout-->
+        <!--android:id="@+id/linear_layout2"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_below="@id/linear_layout1"-->
+        <!--android:layout_alignLeft="@id/linear_layout1"-->
+        <!--android:paddingLeft="12dp"-->
+        <!--android:layout_marginTop="12dp"-->
+        <!--&gt;-->
+        <!--<ImageView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:padding="2dp"-->
+            <!--android:src="@drawable/ic_pill"-->
+            <!--/>-->
+        <!--<TextView-->
+            <!--android:id="@+id/text_pill_intake_freq"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"-->
+            <!--android:text="3 pills per intake"-->
+            <!--android:textStyle="italic"-->
+            <!--android:layout_marginStart="16dp"-->
+            <!--android:layout_marginLeft="16dp"/>-->
+    <!--</LinearLayout>-->
+
+
+    <!--<LinearLayout-->
+        <!--android:id="@+id/linear_layout3"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_centerVertical="true"-->
+        <!--android:layout_alignParentEnd="true"-->
+        <!--android:orientation="vertical"-->
+        <!--android:gravity="end|center"-->
+        <!--android:layout_marginTop="4dp"-->
+
+        <!--android:layout_alignParentRight="true"-->
+        <!--&gt;-->
+
+        <!--<ImageView-->
+            <!--android:id="@+id/image_med_status"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_gravity="center"-->
+            <!--android:src="@drawable/ic_check_circle_black_24dp"-->
+            <!--/>-->
+        <!--<TextView-->
+            <!--android:id="@+id/text_med_status"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"-->
+            <!--android:text="Not Started"-->
+            <!--android:fontFamily="sans-serif-condensed"-->
+            <!--android:paddingRight="16dp"-->
+            <!--android:gravity="center"-->
+
+            <!--android:layout_marginEnd="2dp"-->
+            <!--android:paddingLeft="8dp"-->
+            <!--android:layout_marginRight="2dp" />-->
+    <!--</LinearLayout>-->
+    <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_below="@id/linear_layout2"-->
+        <!--android:layout_alignLeft="@id/linear_layout1"-->
+        <!--android:paddingLeft="12dp"-->
+        <!--android:layout_marginTop="12dp">-->
+        <!--<ImageView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:padding="2dp"-->
+            <!--android:src="@drawable/ic_access_time_black_24dp"-->
+            <!--/>-->
+        <!--<TextView-->
+            <!--android:id="@+id/text_interval_display"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"-->
+            <!--android:text="6 hours interval"-->
+            <!--android:textStyle="italic"-->
+            <!--android:layout_marginStart="16dp"-->
+            <!--android:layout_marginLeft="16dp"/>-->
+
+    <!--</LinearLayout>-->
+</android.support.constraint.ConstraintLayout>

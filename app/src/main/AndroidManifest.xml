@@ -2,7 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.medmanager.android">
 
-    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.VIBRATE"/>
 
     <application
         android:name=".DaggerApplication"
@@ -20,13 +21,15 @@
             </intent-filter>
         </activity>
         <activity android:name=".views.activities.BaseActivity" />
-        <activity
-            android:name=".views.activities.AddMedicationActivity"
-             />
+        <activity android:name=".views.activities.AddMedicationActivity" />
         <activity
             android:name=".views.activities.MainActivity"
             android:label="Med Manager"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".views.activities.AboutMedicationActivity"></activity>
+
+        <service android:name=".presenter.services.NotificationDispatcherService"
+            android:exported="false"/>
     </application>
 
 </manifest>

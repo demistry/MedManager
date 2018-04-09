@@ -41,6 +41,8 @@ public class DatePickerFragment extends BaseFragment {
     private DatePickedInterface datePickedInterface;
     private RemoveFragmentInterface removeFragmentInterface;
 
+    private int fragmentType;
+
 
 
     public DatePickerFragment(){
@@ -61,6 +63,8 @@ public class DatePickerFragment extends BaseFragment {
         mDatePicker = view.findViewById(R.id.date_picker);
         mSaveDateTextView = view.findViewById(R.id.text_date_picked);
 
+        fragmentType = getArguments().getInt("Args");
+
 //        if (date!=null) mDatePicker.updateDate(date.getYear(), date.getMonth(), date.getDay());
 
         mSaveDateTextView.setOnClickListener(
@@ -69,8 +73,9 @@ public class DatePickerFragment extends BaseFragment {
                     public void onClick(View v) {
                         mCalendar =  new GregorianCalendar(mDatePicker.getYear(), mDatePicker.getMonth(), mDatePicker.getDayOfMonth());
                         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEE, MMM d, yyyy", Locale.ENGLISH);
-                        datePickedInterface.datePicked(simpleDateFormat.format(mCalendar.getTime()),  mDatePicker.getMonth());
-                        Toast.makeText(getContext(), "Date picked is "+ simpleDateFormat.format(mCalendar.getTime()), Toast.LENGTH_SHORT).show();
+                        if (fragmentType==0) datePickedInterface.datePicked(simpleDateFormat.format(mCalendar.getTime()),  mDatePicker.getMonth());
+                        else datePickedInterface.EndDatePicked(simpleDateFormat.format(mCalendar.getTime()), mDatePicker.getMonth());
+                        Toast.makeText(getContext(), "Month picked is "+ mDatePicker.getMonth(), Toast.LENGTH_SHORT).show();
                         //onDestroy();
                         removeFragmentInterface.fragmentRemoved();
                     }
@@ -82,6 +87,7 @@ public class DatePickerFragment extends BaseFragment {
     //this interface responds to the click event of the done text-view
     public interface DatePickedInterface{
         void datePicked(String dateText, int startMonth);
+        void EndDatePicked(String dateText, int endMonth);
     }
     public interface RemoveFragmentInterface{
         void fragmentRemoved();

@@ -1,6 +1,123 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+    android:id="@+id/relative_layout_med_category"
+    android:layout_width="match_parent" android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="8dp">
+    <LinearLayout
+        android:id="@+id/linear_layout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/text_med_category_avatar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/item_circle_med_text_bg"
+            android:text="A"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+            android:textSize="32sp"
+            android:fontFamily="sans-serif-condensed"
+            android:gravity="center"
+            android:textAllCaps="true"
+            android:textColor="#fff"
+            android:textStyle="bold"/>
+        <TextView
+            android:id="@+id/text_med_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Aspirin"
+            android:textSize="32sp"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+            android:textAlignment="gravity"
+            android:gravity="top"
+            android:layout_marginStart="12dp"
+            android:layout_marginLeft="12dp" />
+
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/linear_layout2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/linear_layout1"
+        android:layout_alignLeft="@id/linear_layout1"
+        android:paddingLeft="12dp"
+        android:layout_marginTop="12dp"
+        >
+        <ImageView
+            android:id="@+id/image_med_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="2dp"
+            android:src="@drawable/ic_pill"
+            />
+        <TextView
+            android:id="@+id/text_pill_intake_freq"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+            android:text="3 pills per intake"
+            android:textStyle="italic"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"/>
+    </LinearLayout>
 
 
+    <LinearLayout
+        android:id="@+id/linear_layout3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_alignParentEnd="true"
+        android:orientation="vertical"
+        android:gravity="end|center"
+        android:layout_marginTop="4dp"
+
+        android:layout_alignParentRight="true"
+        >
+
+        <ImageView
+            android:id="@+id/image_med_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_check_circle_black_24dp"
+            />
+        <TextView
+            android:id="@+id/text_med_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
+            android:text="Not Started"
+            android:fontFamily="sans-serif-condensed"
+            android:paddingRight="16dp"
+            android:gravity="center"
+
+            android:layout_marginEnd="2dp"
+            android:paddingLeft="8dp"
+            android:layout_marginRight="2dp" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/linear_layout2"
+        android:layout_alignLeft="@id/linear_layout1"
+        android:paddingLeft="12dp"
+        android:layout_marginTop="12dp">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="2dp"
+            android:src="@drawable/ic_access_time_black_24dp"
+            />
+        <TextView
+            android:id="@+id/text_interval_display"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+            android:text="6 hours interval"
+            android:textStyle="italic"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"/>
+
+    </LinearLayout>
 </RelativeLayout>

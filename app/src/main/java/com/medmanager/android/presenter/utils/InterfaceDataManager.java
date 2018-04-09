@@ -1,5 +1,6 @@
 package com.medmanager.android.presenter.utils;
 
+import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
@@ -25,34 +26,48 @@ import static com.medmanager.android.views.fragments.TimePickerFragment.*;
 public class InterfaceDataManager implements DatePickedInterface, RemoveFragmentInterface, TimePickedInterface, RemoveTimeFragmentInterface, IntervalSelectorInterface {
 
     private FragmentTransaction mFragmentTransaction;
+    private int fragmentBundleArgument;
     private DatePickerFragment mDatePickerFragment;
     private TimePickerFragment mTimePickerFragment;
+    private int timeFragType;
     private AppCompatActivity appCompatActivity;
     private IntervalSelectorFragment intervalSelectorFragment;
 
-    private String dateText;
+    private String startDateText;
+    private String endDateText;
     private int startMonth;
+    private int endMonth;
     private TextView startDateTextView, startTimeTextView,intervalTextView;
-    private String timeText;
-    private int timeHour;
-    private int timeMinute;
+    private String startTimeText;
+    private int startTimeHour;
+    private int startTimeMinute;
     private int medInterval;
     private String intervalText;
+    private String endTimeText;
+    private int endTimeHour;
+    private int endTimeMinute;
 
 
-
-    public void instantiateDateFragment(AppCompatActivity appCompatActivity, DatePickerFragment datePickerFragment){
+    public void instantiateDateFragment(AppCompatActivity appCompatActivity, DatePickerFragment datePickerFragment, int fragType){
         this.mDatePickerFragment = datePickerFragment;
         this.appCompatActivity = appCompatActivity;
         mFragmentTransaction = appCompatActivity.getSupportFragmentManager().beginTransaction();
+        fragmentBundleArgument = fragType;
+        Bundle bundle = new Bundle();
+        bundle.putInt("Args", fragType);
+        datePickerFragment.setArguments(bundle);
         mFragmentTransaction.add(R.id.layout_add_medication_root_layout, datePickerFragment);
         mFragmentTransaction.addToBackStack(null);
         mFragmentTransaction.commit();
     }
 
-    public void instantiateTimeFragment(AppCompatActivity appCompatActivity, TimePickerFragment timePickerFragment){
+    public void instantiateTimeFragment(AppCompatActivity appCompatActivity, TimePickerFragment timePickerFragment, int fragType){
         this.appCompatActivity = appCompatActivity;
         this.mTimePickerFragment = timePickerFragment;
+        timeFragType = fragType;
+        Bundle bundle = new Bundle();
+        bundle.putInt("Args", fragType);
+        timePickerFragment.setArguments(bundle);
         mFragmentTransaction = appCompatActivity.getSupportFragmentManager().beginTransaction();
         mFragmentTransaction.add(R.id.layout_add_medication_root_layout, timePickerFragment);
         mFragmentTransaction.addToBackStack(null);
@@ -72,30 +87,48 @@ public class InterfaceDataManager implements DatePickedInterface, RemoveFragment
 
     @Override
     public void datePicked(String dateText, int startMonth) {
-        this.dateText = dateText;
+        this.startDateText = dateText;
         this.startMonth = startMonth;
+    }
+
+    @Override
+    public void EndDatePicked(String dateText, int endMonth) {
+        this.endDateText = dateText;
+        this.endMonth = endMonth;
     }
 
     @Override
     public void fragmentRemoved() {
         mFragmentTransaction = appCompatActivity.getSupportFragmentManager().beginTransaction();
         mFragmentTransaction.remove(mDatePickerFragment).commit();
-        startDateTextView.setText(dateText);
+        if (fragmentBundleArgument == 0) startDateTextView.setText(startDateText);
+        else startDateTextView.setText(endDateText);
     }
 
     @Override
     public void timePicked(String timeText, int timeHour, int timeMinute) {
 
-        this.timeText = timeText;
-        this.timeHour = timeHour;
-        this.timeMinute = timeMinute;
+        this.startTimeText = timeText;
+        this.startTimeHour = timeHour;
+        this.startTimeMinute = timeMinute;
+    }
+
+    @Override
+    public void endTimePicked(String timeText, int timeHour, int timeMinute) {
+
+        endTimeText = timeText;
+        endTimeHour = timeHour;
+        endTimeMinute = timeMinute;
     }
 
     @Override
     public void timeFragmentRemoved() {
         mFragmentTransaction = appCompatActivity.getSupportFragmentManager().beginTransaction();
         mFragmentTransaction.remove(mTimePickerFragment).commit();
-        startTimeTextView.setText(timeText);
+        if (timeFragType == 0)
+        startTimeTextView.setText(startTimeText);
+        else
+            startTimeTextView.setText(endTimeText);
     }
 
     @Override
@@ -131,5 +164,21 @@ public class InterfaceDataManager implements DatePickedInterface, RemoveFragment
 
     public String getTimeAsString(){
         return startTimeTextView.getText().toString();
+    }
+
+    public int getEndMonth() {
+        return endMonth;
+    }
+
+    public String getEndTimeText() {
+        return endTimeText;
+    }
+
+    public int getEndTimeHour() {
+        return endTimeHour;
+    }
+
+    public int getEndTimeMinute() {
+        return endTimeMinute;
     }
 }

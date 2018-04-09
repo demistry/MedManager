@@ -1,5 +1,7 @@
 package com.medmanager.android.presenter.utils;
 
+import android.util.Log;
+
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -20,9 +22,21 @@ public class StringProcessor {
         return Integer.parseInt(substring);
     }
 
+    public static String extractFirstLetter(String string){
+        StringBuilder stringBuilder = new StringBuilder(string);
+        return stringBuilder.substring(0,1);
+    }
+
     public static String convertDateToString(){
         Date date = Calendar.getInstance().getTime();
         SimpleDateFormat dateFormat = new SimpleDateFormat("EEE, MMM d, yyyy", Locale.ENGLISH);
+        return dateFormat.format(date);
+    }
+
+    public static String convertIntToMonthString(int monthType){
+        Date date = new Date(0, monthType + 1, 0);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("LLLL", Locale.getDefault());
+        Log.v("TAG", "Month saved is " + dateFormat.format(date) );
         return dateFormat.format(date);
     }
 

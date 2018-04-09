@@ -1,8 +1,13 @@
 package com.medmanager.android;
 
+import com.medmanager.android.model.datamanagers.AllMedicationsDataManager;
+import com.medmanager.android.model.datamanagers.DataManagerClass;
 import com.medmanager.android.model.di.MedModule;
+import com.medmanager.android.presenter.adapter.ActiveMedicationsAdapter;
+import com.medmanager.android.presenter.adapter.AllMedicationAdapter;
 import com.medmanager.android.presenter.adapter.MonthCategoryAdapter;
 import com.medmanager.android.presenter.utils.SaveMedicationToDatabase;
+import com.medmanager.android.presenter.viewpresenters.AllMedFragmentPresenter;
 import com.medmanager.android.views.activities.BaseActivity;
 import com.medmanager.android.views.fragments.BaseFragment;
 import com.medmanager.android.views.fragments.DatePickerFragment;
@@ -27,4 +32,8 @@ public interface MyApplicationComponent {
     void inject(TimePickerFragment fragment);
     void inject(IntervalSelectorFragment fragment);
     void inject(BaseFragment baseFragment);
+    void inject(AllMedicationAdapter allMedicationAdapter);
+    void inject(ActiveMedicationsAdapter activeMedicationsAdapter);
+    void inject(DataManagerClass dataManagerClass);
+    void inject(AllMedFragmentPresenter fragmentPresenter);
 }

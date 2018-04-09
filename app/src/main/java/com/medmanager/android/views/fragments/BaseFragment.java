@@ -8,7 +8,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.medmanager.android.DaggerApplication;
+import com.medmanager.android.presenter.adapter.ActiveMedicationsAdapter;
+import com.medmanager.android.presenter.adapter.AllMedicationAdapter;
 import com.medmanager.android.presenter.utils.InterfaceDataManager;
+import com.medmanager.android.presenter.viewpresenters.ActiveMedFragmentPresenter;
+import com.medmanager.android.presenter.viewpresenters.AllMedFragmentPresenter;
 
 import java.util.Calendar;
 
@@ -24,6 +28,15 @@ public class BaseFragment extends Fragment {
     Calendar mCalendar;
     @Inject
     InterfaceDataManager interfaceDataManager;
+    @Inject
+    AllMedicationAdapter allMedicationAdapter;
+    @Inject
+    ActiveMedicationsAdapter mActiveMedicationsAdapter;
+
+    @Inject
+    AllMedFragmentPresenter allMedFragmentPresenter;
+    @Inject
+    ActiveMedFragmentPresenter activeMedFragmentPresenter;
 
     public BaseFragment(){
 

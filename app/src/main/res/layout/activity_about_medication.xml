@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="8dp">
+
+    <TextView
+        android:id="@+id/textview1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:textColor="@color/colorAccentSecondary"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
+        android:text="Name"/>
+    <TextView
+        android:id="@+id/text_about_med_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textview1"
+        android:text="Aspirin"
+        android:paddingLeft="8dp"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+        android:textStyle="bold"
+        android:textAllCaps="true"
+        android:paddingStart="8dp" />
+    <ImageView
+        android:id="@+id/image_about_med_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@id/text_about_med_name"
+        android:layout_marginEnd="8dp"
+        android:src="@drawable/ic_check_circle_black_24dp"
+        android:layout_marginRight="8dp" />
+    <TextView
+        android:id="@+id/textview2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/text_about_med_name"
+        android:textColor="@color/colorAccentSecondary"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
+        android:text="Description"/>
+    <TextView
+        android:id="@+id/about_med_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textview2"
+        android:gravity="fill"
+        android:textAlignment="gravity"
+        android:text="This is useful in curing cough and other side diseases to make sure it is cool"
+        android:paddingLeft="8dp"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"/>
+
+    <View
+        android:id="@+id/view_divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/about_med_description"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/recycler_view_divider">
+
+    </View>
+
+    <TextView
+        android:id="@+id/textview3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/view_divider"
+        android:textColor="@color/colorAccentSecondary"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
+        android:text="From"/>
+    <TextView
+        android:id="@+id/about_med_start_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textview3"
+        android:gravity="fill"
+        android:textAlignment="gravity"
+        android:text="Wed, 5th, March"
+        android:paddingLeft="8dp"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"/>
+    <TextView
+        android:id="@+id/textview4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/view_divider"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
+        android:text="To"
+        android:textColor="@color/colorAccentSecondary"/>
+    <TextView
+        android:id="@+id/about_med_end_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textview4"
+        android:layout_alignStart="@id/textview4"
+        android:gravity="fill"
+        android:textAlignment="gravity"
+        android:text="Wed, 5th, March"
+        android:paddingLeft="8dp"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
+        android:layout_alignLeft="@id/textview4" />
+    <TextView
+        android:id="@+id/about_med_start_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/about_med_start_date"
+        android:layout_alignStart="@id/about_med_start_date"
+        android:layout_alignEnd="@id/about_med_start_date"
+        android:gravity="center"
+        android:textAlignment="gravity"
+        android:text="17:51"
+        android:paddingLeft="8dp"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
+        android:layout_alignLeft="@id/textview4"
+        android:layout_alignRight="@id/about_med_start_date" />
+    <TextView
+        android:id="@+id/about_med_end_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/about_med_end_date"
+        android:layout_alignStart="@id/about_med_end_date"
+        android:layout_alignEnd="@id/about_med_end_date"
+        android:gravity="center"
+        android:textAlignment="gravity"
+        android:text="17:51"
+        android:paddingLeft="8dp"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
+        android:layout_alignLeft="@id/textview4"
+        android:layout_alignRight="@id/about_med_end_date" />
+
+    <View
+        android:id="@+id/view_divider2"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/about_med_end_time"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/recycler_view_divider">
+
+    </View>
+
+    <TextView
+        android:id="@+id/textview5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/view_divider2"
+        android:textColor="@color/colorAccentSecondary"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
+        android:text="Medication Type"/>
+    <TextView
+        android:id="@+id/text_about_med_type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textview5"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:textAlignment="center"
+        android:text="Syrup"
+        android:paddingLeft="8dp"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"/>
+    <ImageView
+        android:id="@+id/image_about_med_type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/text_about_med_type"
+        android:layout_toRightOf="@id/text_about_med_type"
+        android:layout_toEndOf="@id/text_about_med_type"
+        android:layout_marginEnd="8dp"
+        android:src="@drawable/ic_syrup"
+        android:layout_marginRight="8dp" />
+    <View
+        android:id="@+id/view_divider3"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/text_about_med_type"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/recycler_view_divider">
+
+    </View>
+
+    <TextView
+        android:id="@+id/textview6"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_below="@id/view_divider3"
+        android:textColor="@color/colorAccentSecondary"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
+        android:text="Dosage Count"/>
+    <TextView
+        android:id="@+id/text_about_dosage_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textview6"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:textAlignment="center"
+        android:text="0"
+        android:paddingLeft="8dp"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"/>
+    <ImageView
+        android:id="@+id/image_increment_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/text_about_dosage_count"
+        android:layout_alignBottom="@id/text_about_dosage_count"
+        android:layout_toRightOf="@id/text_about_dosage_count"
+        android:layout_toEndOf="@id/text_about_dosage_count"
+        android:layout_marginStart="8dp"
+        android:src="@drawable/ic_add_box_black_24dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginLeft="8dp" />
+    <ImageView
+        android:id="@+id/image_decrement_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/text_about_dosage_count"
+        android:layout_alignBottom="@id/text_about_dosage_count"
+        android:layout_toLeftOf="@id/text_about_dosage_count"
+
+
+        android:src="@drawable/ic_indeterminate_check_box_black_24dp"
+        android:layout_marginRight="12dp"
+        android:layout_marginEnd="12dp" />
+    <View
+        android:id="@+id/view_divider4"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/text_about_dosage_count"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/recycler_view_divider">
+
+    </View>
+
+    <TextView
+        android:id="@+id/textview7"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textAlignment="center"
+        android:layout_below="@id/view_divider4"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
+        android:textColor="@color/colorAccentSecondary"
+        android:text="Medication taken every"/>
+    <TextView
+        android:id="@+id/text_about_med_interval"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textview7"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:textAlignment="center"
+        android:text="30 minutes"
+
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+        />
+
+    <Button
+        android:id="@+id/btn_edit_med"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:background="@drawable/item_sign_in_button_background"
+        android:layout_gravity="bottom"
+        android:text="EDIT"
+        android:textColor="#fff"
+        android:layout_marginBottom="8dp"
+        android:layout_alignParentBottom="true"
+        android:clickable="true"
+        android:focusable="true" />
+
+
+</RelativeLayout>

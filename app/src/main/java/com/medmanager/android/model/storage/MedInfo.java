@@ -18,19 +18,20 @@ public class MedInfo {
     @PrimaryKey(autoGenerate = true)
     private int _id;
 
-    private String medicationName;
-    private String medicationDescription;
-    private int monthType;
-    private String startDate;
-    private String startTime;
-    private String endDate;
-    private String endTime;
+    private String medicationName;//
+    private String medicationDescription;//
+    private int monthType;//
+    private String startDate;//
+    private String startTime;//
+    private String endDate;//
+    private String endTime;//
 
-    @Ignore
-    private int medicationFrequency;
+
+    private String pillNumber;
+    private String medicationType;//
     private int medicationInterval;
 
-    private boolean isMedicationStarted;
+    private boolean isMedicationStarted;//
 
 
     public MedInfo(){
@@ -53,9 +54,9 @@ public class MedInfo {
         return endDate;
     }
 
-//    public int getMedicationFrequency() {
-//        return medicationFrequency;
-//    }
+    public String getPillNumber() {
+        return pillNumber;
+    }
 
     public void setMedicationName(String medicationName) {
         this.medicationName = medicationName;
@@ -81,9 +82,9 @@ public class MedInfo {
         this.endDate = endDate;
     }
 
-//    public void setMedicationFrequency(int medicationFrequency) {
-//        this.medicationFrequency = medicationFrequency;
-//    }
+    public void setPillNumber(String pillNumber) {
+        this.pillNumber = pillNumber;
+    }
 
     public int getMedicationInterval() {
         return medicationInterval;
@@ -123,5 +124,13 @@ public class MedInfo {
 
     public void set_id(int _id) {
         this._id = _id;
+    }
+
+    public String getMedicationType() {
+        return medicationType;
+    }
+
+    public void setMedicationType(String medicationType) {
+        this.medicationType = medicationType;
     }
 }

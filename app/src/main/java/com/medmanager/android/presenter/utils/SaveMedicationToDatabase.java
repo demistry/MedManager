@@ -6,10 +6,13 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.medmanager.android.DaggerApplication;
+import com.medmanager.android.model.datamanagers.ActiveMedicationsDataManager;
+import com.medmanager.android.model.datamanagers.AllMedicationsDataManager;
 import com.medmanager.android.model.di.MedComponent;
 import com.medmanager.android.model.storage.MedInfo;
 import com.medmanager.android.model.storage.MedicationDAO;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -21,12 +24,16 @@ import javax.inject.Inject;
 public class SaveMedicationToDatabase {
 
 
-    @Inject
-    MedInfo medInfo;
-    @Inject
-    List<MedInfo> medInfoList;
+//    @Inject
+    static MedInfo medInfo;
+//    @Inject
+    static List<MedInfo> medInfoList;
     @Inject
     MedicationDAO medicationDAO;
+    @Inject
+    AllMedicationsDataManager dataManager;
+    @Inject
+    ActiveMedicationsDataManager activeMedicationsDataManager;
 
     private static MedicationDAO asyncMedDao;
     private static List<MedInfo> asyncMedInfo;
@@ -36,9 +43,11 @@ public class SaveMedicationToDatabase {
         ((DaggerApplication)context).getMyApplicationComponent().inject(this);
         asyncMedDao = medicationDAO;
         asyncMedInfo = medInfoList;
+        medInfo = new MedInfo();
+        medInfoList = new ArrayList<>();
     }
     public void saveMedToRoomDatabase(String medName, String medDescription, String startDate, String startTime, String endDate, String endTime,
-                                      int monthType, int interval, boolean isMedStarted){
+                                      int monthType, String pillNumber, int interval, boolean isMedStarted, String medicationType){
         medInfo.setMedicationName(medName);
         medInfo.setMedicationDescription(medDescription);
         medInfo.setStartDate(startDate);
@@ -46,24 +55,30 @@ public class SaveMedicationToDatabase {
         medInfo.setEndDate(endDate);
         medInfo.setEndTime(endTime);
         medInfo.setMonthType(monthType);
-        //medInfo.setMedicationFrequency(frequency);
+        medInfo.setPillNumber(pillNumber);
         medInfo.setMedicationInterval(interval);
         medInfo.setMedicationStarted(isMedStarted);
-        new SaveAsync().execute();
-
+        medInfo.setMedicationType(medicationType);
+        medInfoList.add(medInfo);
+        new SaveAsync().execute(medInfoList);
+        dataManager.getAllMedications();
+        activeMedicationsDataManager.requeryActiveMedications();
     }
-    private static class SaveAsync extends AsyncTask<Void, Void, List<MedInfo>>{
+    private static class SaveAsync extends AsyncTask<List<MedInfo>, Void, List<MedInfo>>{
+
 
         @Override
-        protected List<MedInfo> doInBackground(Void... voids) {
-            asyncMedDao.insertMedInfo(asyncMedInfo);
+        protected List<MedInfo> doInBackground(List<MedInfo>[] lists) {
+            asyncMedDao.insertMedInfo(lists[0].get(lists.length-1));
             return asyncMedDao.getAllMedications();
         }
 
         @Override
         protected void onPostExecute(List<MedInfo> medInfos) {
             super.onPostExecute(medInfos);
-            Log.v("TAG", medInfos.toString());
+//            Log.v("TAG", "Med Name is "+medInfos.get(0).getMedicationName());
+//            Log.v("TAG", "Med Name at pos 1 is "+medInfos.get(1).getMedicationName());
+//            Log.v("TAG", "Med Description is "+medInfos.get(0).getMedicationDescription());
         }
     }
 

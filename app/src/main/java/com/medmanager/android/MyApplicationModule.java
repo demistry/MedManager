@@ -7,12 +7,20 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.medmanager.android.model.datamanagers.ActiveMedicationsDataManager;
+import com.medmanager.android.model.datamanagers.AllMedicationsDataManager;
+import com.medmanager.android.model.datamanagers.DataManagerClass;
 import com.medmanager.android.model.storage.MedInfo;
 import com.medmanager.android.model.storage.MedicationDAO;
 import com.medmanager.android.model.storage.MedicationDatabase;
+import com.medmanager.android.presenter.adapter.ActiveMedicationsAdapter;
+import com.medmanager.android.presenter.adapter.AllMedicationAdapter;
 import com.medmanager.android.presenter.utils.InterfaceDataManager;
 import com.medmanager.android.presenter.utils.SaveMedicationToDatabase;
+import com.medmanager.android.presenter.viewpresenters.ActiveMedFragmentPresenter;
+import com.medmanager.android.presenter.viewpresenters.AllMedFragmentPresenter;
 import com.medmanager.android.views.activities.BaseActivity;
+import com.medmanager.android.views.fragments.ActiveMedicationFragment;
 import com.medmanager.android.views.fragments.DatePickerFragment;
 import com.medmanager.android.views.fragments.IntervalSelectorFragment;
 import com.medmanager.android.views.fragments.TimePickerFragment;
@@ -60,6 +68,21 @@ public class MyApplicationModule {
     @Provides @Singleton
     SaveMedicationToDatabase providesMedication(){return new SaveMedicationToDatabase(daggerApplication);}
 
+    @Provides @Singleton
+    AllMedicationsDataManager providesAllMedsDataManager(){return new AllMedicationsDataManager(daggerApplication);}
+
+    @Provides @Singleton
+    ActiveMedicationsDataManager providesActiveMedsDataManager(){return new ActiveMedicationsDataManager(daggerApplication);}
+
+    @Provides @Singleton
+    AllMedicationAdapter providesAllMeds(){return new AllMedicationAdapter();}
+
+    @Provides @Singleton
+    ActiveMedicationsAdapter providesActiveMedsAdapter(){return new ActiveMedicationsAdapter();}
+
+    @Provides @Singleton
+    DataManagerClass provideDataManager(){return new DataManagerClass(daggerApplication);}
+
 
 
     @Provides
@@ -83,10 +106,19 @@ public class MyApplicationModule {
     @Provides
     TimePickerFragment providesTimePickerFragment(){return new TimePickerFragment();}
 
+    @Provides
+    ActiveMedicationFragment providesActiveMedFragment(){return new ActiveMedicationFragment();}
+
     @Provides @Singleton
     IntervalSelectorFragment providesInterval(){return new IntervalSelectorFragment();}
 
     @Provides @Singleton
     InterfaceDataManager providesInterfaceDataManager(){return new InterfaceDataManager();}
+
+    @Provides @Singleton
+    AllMedFragmentPresenter providesAllMedPresenter(){return new AllMedFragmentPresenter();}
+
+    @Provides @Singleton
+    ActiveMedFragmentPresenter providesActiveMedPresenter(){return new ActiveMedFragmentPresenter();}
 
 }

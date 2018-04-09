@@ -10,6 +10,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/colorPrimaryLight"
         android:orientation="vertical"
         >
         <FrameLayout
@@ -20,7 +21,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center_horizontal"
-                android:text="J"
+                android:text="Tega"
+                android:textColor="#fff"
                 android:textStyle="bold"
                 android:textSize="80sp"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"/>
@@ -50,6 +52,7 @@
             android:backgroundTintMode="src_over"
             android:gravity="center"
             android:text="January"
+            android:textColor="#fff"
             />
 
     </LinearLayout>

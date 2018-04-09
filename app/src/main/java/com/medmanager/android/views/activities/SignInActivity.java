@@ -97,6 +97,7 @@ public class SignInActivity extends BaseActivity implements GoogleApiClient.OnCo
         mGoogleApiClient = UserProfileUtils.handleSignUp(this, this);
         Intent googleSignInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
         startActivityForResult(googleSignInIntent,RQ_SIGNIN_CODE);
+        //finish();
     }
 
     public void handleEmailSignUp(View view) {
