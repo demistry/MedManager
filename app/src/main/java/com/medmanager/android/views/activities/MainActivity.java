@@ -3,19 +3,17 @@ package com.medmanager.android.views.activities;
 import android.Manifest;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
-import android.arch.persistence.room.Database;
-import android.content.ContentResolver;
+import android.animation.ObjectAnimator;
+import android.animation.PropertyValuesHolder;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.media.Image;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
@@ -23,39 +21,28 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.medmanager.android.ConstantClass;
 import com.medmanager.android.R;
 import com.medmanager.android.model.storage.MedInfo;
 import com.medmanager.android.presenter.adapter.MedViewPagerAdapter;
-import com.medmanager.android.presenter.adapter.SearchListAdapter;
 import com.medmanager.android.presenter.adapter.SearchQueryAdapter;
-import com.medmanager.android.presenter.services.NotificationDispatcherService;
 import com.medmanager.android.presenter.utils.MedsSingleton;
 import com.medmanager.android.presenter.utils.UserProfileUtils;
 import com.medmanager.android.presenter.viewpresenters.ActiveMedFragmentPresenter;
-import com.medmanager.android.presenter.viewpresenters.NotificationPresenter;
 import com.medmanager.android.views.fragments.EditProfileFragment;
-import com.squareup.picasso.Picasso;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends BaseActivity
@@ -65,6 +52,7 @@ public class MainActivity extends BaseActivity
     private TextView mNameTextView, mAvatarTextView, mTitleTextvIew;
     private ImageView mUserImage;
     private Toolbar mToolbar;
+    private FloatingActionButton mFab;
     private AppBarLayout mAppBar;
 
 
@@ -76,7 +64,7 @@ public class MainActivity extends BaseActivity
     private SearchQueryAdapter mAdapter;
 
     private Bitmap mBitmap;
-    private Uri filePath;
+    private Uri mFilePath;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,6 +82,7 @@ public class MainActivity extends BaseActivity
         searchView = findViewById(R.id.search_view);
         mTitleTextvIew = findViewById(R.id.text_title);
         mRecyclerView = findViewById(R.id.recycler_view_search_medication);
+        mFab = findViewById(R.id.fab_create_new_medication);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         List<MedInfo> medInfos = MedsSingleton.getInstance().getAllMedicationsInfo();
@@ -104,12 +93,15 @@ public class MainActivity extends BaseActivity
         }
 
 
+        ObjectAnimator scaleDown = ObjectAnimator.ofPropertyValuesHolder(
+                mFab,
+                PropertyValuesHolder.ofFloat("scaleX", 1.2f),
+                PropertyValuesHolder.ofFloat("scaleY", 1.2f));
+        scaleDown.setDuration(310);
 
-
-
-
-
-
+        scaleDown.setRepeatCount(ObjectAnimator.INFINITE);
+        scaleDown.setRepeatMode(ObjectAnimator.REVERSE);
+        scaleDown.start();
         new ActiveMedFragmentPresenter(this).loadActiveMedications();
 
         mTabLayout.addTab(mTabLayout.newTab().setText("All"));
@@ -281,9 +273,9 @@ public class MainActivity extends BaseActivity
 //                ContentResolver resolver = getContentResolver();
 //                    resolver.takePersistableUriPermission(data.getData(), takeFlags);
 //            }
-            filePath = data.getData();
+            mFilePath = data.getData();
             try{
-                mBitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
+                mBitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), mFilePath);
                 editProfileFragment.setBitmap(mBitmap);
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
@@ -313,7 +305,7 @@ public class MainActivity extends BaseActivity
 
     @Override
     public void handleEditProfile(String displayName) {
-        UserProfileUtils.handleProfileEdit(this, firebaseAuth, displayName,filePath );
+        UserProfileUtils.handleProfileEdit(this, firebaseAuth, displayName, mFilePath);
     }
 
 

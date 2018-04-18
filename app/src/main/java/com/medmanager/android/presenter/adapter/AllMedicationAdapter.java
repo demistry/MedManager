@@ -21,16 +21,15 @@ import javax.inject.Inject;
 
 /**
  * Created by ILENWABOR DAVID on 06/04/2018.
+ * This class holds the adapter for displaying all medications
  */
 
 public class AllMedicationAdapter extends RecyclerView.Adapter<AllMedicationHolder> {
-
-
-
     @Inject
     AdapterInterfaceDataManager adapterInterfaceDataManager;
     @Inject
     Context context;
+
     private List<MedInfo> mMedInfos;
 
     public AllMedicationAdapter(Context context){
@@ -64,9 +63,18 @@ public class AllMedicationAdapter extends RecyclerView.Adapter<AllMedicationHold
         return 0;
     }
 
+    /**
+     * This method is used to set the list source of all medications
+     *
+     */
     public void setMedInfo(List<MedInfo> medInfos){
         this.mMedInfos = medInfos;
     }
+
+
+    /**
+     * This interface callback is used to respond to clicks on the medication recycler view
+     */
 
     public interface MedicationClickedInterface{
         void onMedicationClicked(MedInfo medInfo, Context context);

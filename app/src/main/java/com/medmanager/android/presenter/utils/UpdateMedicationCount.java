@@ -1,7 +1,6 @@
 package com.medmanager.android.presenter.utils;
 
 import android.content.Context;
-import android.database.Observable;
 import android.os.AsyncTask;
 
 import com.medmanager.android.DaggerApplication;
@@ -9,7 +8,6 @@ import com.medmanager.android.model.datamanagers.ActiveMedicationsDataManager;
 import com.medmanager.android.model.datamanagers.AllMedicationsDataManager;
 import com.medmanager.android.model.storage.MedInfo;
 import com.medmanager.android.model.storage.MedicationDAO;
-import com.medmanager.android.presenter.services.NotificationDispatcherService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,35 +19,43 @@ import io.reactivex.disposables.Disposable;
 
 /**
  * Created by ILENWABOR DAVID on 18/04/2018.
+ * Class for updating medication count in database
  */
 
 public class UpdateMedicationCount {
     private final Context mContext;
-    static MedInfo medInfo;
-    //    @Inject
-    static List<MedInfo> medInfoList;
+    private static MedInfo sMedInfo;
+    private static List<MedInfo> sMedInfoList;
+
     @Inject
     MedicationDAO medicationDAO;
     @Inject
     AllMedicationsDataManager dataManager;
     @Inject
     ActiveMedicationsDataManager activeMedicationsDataManager;
-    @Inject
-    NotificationDispatcherService notificationDispatcherService;
-    private static MedicationDAO asyncMedDao;
-    private static List<MedInfo> asyncMedInfo;
 
-    int returnedDosageCount;
+    private static MedicationDAO sAsyncMedDao;
+    private static List<MedInfo> sAsyncMedInfo;
+
+    private int returnedDosageCount;
+
 
     public UpdateMedicationCount(Context context){
         mContext = context;
         ((DaggerApplication)context).getMyApplicationComponent().inject(this);
-        asyncMedDao = medicationDAO;
-        asyncMedInfo = medInfoList;
-        medInfo = new MedInfo();
-        medInfoList = new ArrayList<>();
+        sAsyncMedDao = medicationDAO;
+        sAsyncMedInfo = sMedInfoList;
+        sMedInfo = new MedInfo();
+        sMedInfoList = new ArrayList<>();
     }
 
+    /**
+     * This method updates dosage count from Notification
+     * @param context Context
+     * @param medName String
+     * @param dosageCount int
+     * @return int
+     */
     public int updateMedicationCount(Context context, String medName, int dosageCount){
         new UpdateAsync().execute(medName, dosageCount);
         io.reactivex.Observable<Integer> observable = io.reactivex.Observable.just(dosageCount);
@@ -80,13 +86,12 @@ public class UpdateMedicationCount {
         return returnedDosageCount;
     }
 
+
     private static class UpdateAsync extends AsyncTask<Object, Void, List<MedInfo>> {
-
-
         @Override
         protected List<MedInfo> doInBackground(Object... object) {
-            asyncMedDao.updateDosageCount(String.valueOf(object[0]), (int) object[1]);
-            return asyncMedDao.getAllMedications();
+            sAsyncMedDao.updateDosageCount(String.valueOf(object[0]), (int) object[1]);
+            return sAsyncMedDao.getAllMedications();
         }
 
         @Override

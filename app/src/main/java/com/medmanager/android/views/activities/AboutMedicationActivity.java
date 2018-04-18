@@ -1,42 +1,33 @@
 package com.medmanager.android.views.activities;
 
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.NotificationManagerCompat;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.medmanager.android.ConstantClass;
 import com.medmanager.android.R;
 import com.medmanager.android.model.storage.MedInfo;
-import com.medmanager.android.presenter.services.NotificationDispatcherService;
 import com.medmanager.android.presenter.utils.AlertDialogCreator;
-import com.medmanager.android.presenter.utils.DeleteMedication;
-import com.medmanager.android.presenter.utils.MedsSingleton;
+
+import java.util.Locale;
 
 public class AboutMedicationActivity extends BaseActivity {
     private TextView mMedNameTextView, mMedDescriptionTextView, mMedStartDateTextView, mMedStartTimeTextView;
     private TextView mEndDateTextView, mEndTimeTextView, mMedicationTypeTextView, mDosageCountTextView, mDosageIntervalTextView;
     private ImageView mMedStatusImageView, mMedTypeImageView, mIncrementCountImageView, mDecrementCountImageView;
-
     private Button mEditButton;
 
-    private MedInfo medInfo;
+    private MedInfo mMedInfo;
 
-    private Bundle bundle;
+    private Bundle mBundle;
 
-    private static int dosage;
-    int newAmount;
+    private static int sDosage;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,24 +47,22 @@ public class AboutMedicationActivity extends BaseActivity {
         mDecrementCountImageView = findViewById(R.id.image_decrement_count);
         mEditButton = findViewById(R.id.btn_edit_med);
 
-        bundle = getIntent().getExtras();
-
-        NotificationDispatcherService.setUpPref(getSharedPreferences(ConstantClass.PREF_SHARED, MODE_PRIVATE));
+        mBundle = getIntent().getExtras();
 
         mEditButton.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if(medInfo==null){
+                        if(mMedInfo ==null){
                             Intent intent = new Intent(AboutMedicationActivity.this, AddMedicationActivity.class);
 
-                            intent.putExtra("UpdateMed", adapterInterfaceDataManager.getSerializedMedifcation());
+                            intent.putExtra(ConstantClass.EXTRA_UPDATE_MED, adapterInterfaceDataManager.getSerializedMedifcation());
                             startActivity(intent);
                         }
                         else{
                             Intent intent = new Intent(AboutMedicationActivity.this, AddMedicationActivity.class);
 
-                            intent.putExtra("UpdateMed", medInfo.serialize());
+                            intent.putExtra(ConstantClass.EXTRA_UPDATE_MED, mMedInfo.serialize());
                             startActivity(intent);
                         }
                     }
@@ -84,11 +73,11 @@ public class AboutMedicationActivity extends BaseActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if(medInfo==null){
+                        if(mMedInfo ==null){
                             incrementMedicationCount(adapterInterfaceDataManager.getMedInfo());
                         }
                         else{
-                            incrementMedicationCount(medInfo);
+                            incrementMedicationCount(mMedInfo);
                         }
                     }
                 }
@@ -98,11 +87,11 @@ public class AboutMedicationActivity extends BaseActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if(medInfo==null){
+                        if(mMedInfo ==null){
                             decrementMedicationCount(adapterInterfaceDataManager.getMedInfo());
                         }
                         else{
-                            decrementMedicationCount(medInfo);
+                            decrementMedicationCount(mMedInfo);
                         }
                     }
                 }
@@ -120,9 +109,9 @@ public class AboutMedicationActivity extends BaseActivity {
     protected void onStart() {
         super.onStart();
         if(adapterInterfaceDataManager!=null){
-            medInfo = adapterInterfaceDataManager.getMedInfo();
-            mMedNameTextView.setText(adapterInterfaceDataManager.getmMedicationName());
-            mMedDescriptionTextView.setText(adapterInterfaceDataManager.getmMedicationDescription());
+            mMedInfo = adapterInterfaceDataManager.getMedInfo();
+            mMedNameTextView.setText(adapterInterfaceDataManager.getMedicationName());
+            mMedDescriptionTextView.setText(adapterInterfaceDataManager.getMedicationDescription());
             mMedStartDateTextView.setText(adapterInterfaceDataManager.getStartDate());
             mMedStartTimeTextView.setText(adapterInterfaceDataManager.getStartTime());
             mEndDateTextView.setText(adapterInterfaceDataManager.getEndDate());
@@ -151,12 +140,12 @@ public class AboutMedicationActivity extends BaseActivity {
             mDosageCountTextView.setText(String.valueOf(adapterInterfaceDataManager.getDosageCount()));
             int interval = adapterInterfaceDataManager.getMedicationInterval();
             if (interval == 30){
-                mDosageIntervalTextView.setText(interval + " minutes");
+                mDosageIntervalTextView.setText(String.format(Locale.getDefault(),"%d%s", interval, getString(R.string.minutes)));
             } else
             if (interval == 1){
-                mDosageIntervalTextView.setText(interval + " hour");
+                mDosageIntervalTextView.setText(String.format(Locale.getDefault(),"%d%s", interval, getString(R.string.hour)));
             } else
-                mDosageIntervalTextView.setText(interval + " hours");
+                mDosageIntervalTextView.setText(String.format(Locale.getDefault(),"%d%s", interval, getString(R.string.hours)));
         }
 
     }
@@ -179,7 +168,7 @@ public class AboutMedicationActivity extends BaseActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.action_delete){
-            AlertDialogCreator.createDeleteDialog(this, deleteMedication, medInfo);
+            AlertDialogCreator.createDeleteDialog(this, deleteMedication, mMedInfo);
         }
         return super.onOptionsItemSelected(item);
     }
@@ -187,26 +176,26 @@ public class AboutMedicationActivity extends BaseActivity {
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
-        this.bundle = intent.getExtras();
-        handleNotificationClicks(bundle);
+        this.mBundle = intent.getExtras();
+        handleNotificationClicks(mBundle);
     }
 
 
 
     private void incrementMedicationCount(MedInfo medInformation) {
         int medicationAmount = Integer.parseInt(medInformation.getDoseNumber());
-        dosage = medInformation.getDosageCount();
-        dosage += medicationAmount;
-        int returnedDosage = updateMedicationCount.updateMedicationCount(this, medInformation.getMedicationName(), dosage);
+        sDosage = medInformation.getDosageCount();
+        sDosage += medicationAmount;
+        int returnedDosage = updateMedicationCount.updateMedicationCount(this, medInformation.getMedicationName(), sDosage);
         mDosageCountTextView.setText(String.valueOf(returnedDosage));
     }
 
     private void decrementMedicationCount(MedInfo medInformation) {
         int medicationAmount = Integer.parseInt(medInformation.getDoseNumber());
-        dosage = medInformation.getDosageCount();
-        if (dosage!=0)
-            dosage -= medicationAmount;
-        int returnedDosage = updateMedicationCount.updateMedicationCount(this, medInformation.getMedicationName(), dosage);
+        sDosage = medInformation.getDosageCount();
+        if (sDosage !=0)
+            sDosage -= medicationAmount;
+        int returnedDosage = updateMedicationCount.updateMedicationCount(this, medInformation.getMedicationName(), sDosage);
         mDosageCountTextView.setText(String.valueOf(returnedDosage));
     }
 
@@ -214,18 +203,18 @@ public class AboutMedicationActivity extends BaseActivity {
 
     private void handleNotificationClicks(Bundle bundle){
         if (bundle!=null){
-            String notificationMedInfo = bundle.getString("notificationItem");
+            String notificationMedInfo = bundle.getString(ConstantClass.EXTRA_NOTIFICATION_ITEM);
 
-            medInfo = MedInfo.create(notificationMedInfo);
-            mMedNameTextView.setText(medInfo.getMedicationName());
-            mMedDescriptionTextView.setText(medInfo.getMedicationName());
-            mMedStartDateTextView.setText(medInfo.getStartDate());
-            mMedStartTimeTextView.setText(medInfo.getStartTime());
-            mEndDateTextView.setText(medInfo.getEndDate());
-            mEndTimeTextView.setText(medInfo.getEndTime());
-            mMedicationTypeTextView.setText(medInfo.getMedicationType());
+            mMedInfo = MedInfo.create(notificationMedInfo);
+            mMedNameTextView.setText(mMedInfo.getMedicationName());
+            mMedDescriptionTextView.setText(mMedInfo.getMedicationName());
+            mMedStartDateTextView.setText(mMedInfo.getStartDate());
+            mMedStartTimeTextView.setText(mMedInfo.getStartTime());
+            mEndDateTextView.setText(mMedInfo.getEndDate());
+            mEndTimeTextView.setText(mMedInfo.getEndTime());
+            mMedicationTypeTextView.setText(mMedInfo.getMedicationType());
 
-            switch (medInfo.getMedicationType()) {
+            switch (mMedInfo.getMedicationType()) {
                 case "Pills":
                     mMedTypeImageView.setImageResource(R.drawable.ic_pill);
                     break;
@@ -236,23 +225,24 @@ public class AboutMedicationActivity extends BaseActivity {
                     mMedTypeImageView.setImageResource(R.drawable.ic_syrup);
                     break;
             }
-            if (medInfo.isMedicationStarted())
+            if (mMedInfo.isMedicationStarted())
                 mMedStatusImageView.setImageResource(R.drawable.ic_check_circle_black_24dp);
             else
                 mMedStatusImageView.setImageResource(R.drawable.ic_warning_black_24dp);
 
-            mDosageCountTextView.setText(String.valueOf(medInfo.getDosageCount()));
-            int interval = medInfo.getMedicationInterval();
+            mDosageCountTextView.setText(String.valueOf(mMedInfo.getDosageCount()));
+            int interval = mMedInfo.getMedicationInterval();
             if (interval == 30){
-                mDosageIntervalTextView.setText(interval + " minutes");
+                mDosageIntervalTextView.setText(String.format(Locale.getDefault(),"%d%s", interval, getString(R.string.minutes)));
             } else
             if (interval == 1){
-                mDosageIntervalTextView.setText(interval + " hour");
+                mDosageIntervalTextView.setText(String.format(Locale.getDefault(),"%d%s", interval, getString(R.string.hour)));
             } else
-                mDosageIntervalTextView.setText(interval + " hours");
+                mDosageIntervalTextView.setText(String.format(Locale.getDefault(),"%d%s", interval, getString(R.string.hours)));
 
-            NotificationManagerCompat.from(this).cancel(bundle.getString("notifTag"), bundle.getInt("id"));
-            incrementMedicationCount(medInfo);
+            NotificationManagerCompat.from(this).cancel(bundle.getString(ConstantClass.EXTRA_NOTIFICATION_TAG),
+                    bundle.getInt(ConstantClass.EXTRA_NOTIFICATION_ID));
+            incrementMedicationCount(mMedInfo);
         }
     }
 }

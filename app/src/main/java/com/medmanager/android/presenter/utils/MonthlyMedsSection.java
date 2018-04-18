@@ -1,11 +1,7 @@
 package com.medmanager.android.presenter.utils;
 
-import android.support.v7.widget.RecyclerView;
-import android.view.View;
-
-import com.medmanager.android.R;
 import com.medmanager.android.model.storage.MedInfo;
-import com.medmanager.android.presenter.holder.AllMedicationHolder;
+
 
 
 
@@ -15,7 +11,7 @@ import com.medmanager.android.presenter.holder.AllMedicationHolder;
 
 public class MonthlyMedsSection {
     /**
-     * Create a stateless Section object based on {@link SectionParameters}.
+     * Create a stateless Section object
      *
      *
      */

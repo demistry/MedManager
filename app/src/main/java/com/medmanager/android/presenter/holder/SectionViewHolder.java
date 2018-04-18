@@ -8,13 +8,13 @@ import com.medmanager.android.R;
 
 /**
  * Created by ILENWABOR DAVID on 09/04/2018.
+ * View Holder class for all month category
  */
 
 public class SectionViewHolder extends RecyclerView.ViewHolder {
-    public TextView monthTextView, numberOfItems;
+    public TextView monthTextView;
     public SectionViewHolder(View itemView) {
         super(itemView);
         monthTextView = itemView.findViewById(R.id.text_month);
-        //numberOfItems = itemView.findViewById(R.id.text_number_of_meds2);
     }
 }

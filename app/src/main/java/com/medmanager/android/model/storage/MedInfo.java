@@ -23,25 +23,22 @@ public class MedInfo {
     private int _id;
 
     @ColumnInfo(name = "medName")
-    private String medicationName;//
-    private String medicationDescription;//
-    private int monthType;//
-    private String startDate;//
-    private String startTime;//
-    private String endDate;//
-    private String endTime;//
+    private String medicationName;
 
-
+    private String medicationDescription;
+    private int monthType;
+    private String startDate;
+    private String startTime;
+    private String endDate;
+    private String endTime;
     private String doseNumber;
-    private String medicationType;//
+    private String medicationType;
     private int medicationInterval;
 
     @ColumnInfo(name = "dosageCount")
     private int dosageCount;
 
     private boolean isMedicationStarted;//
-
-
 
 
     public MedInfo(){

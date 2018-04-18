@@ -1,11 +1,8 @@
 package com.medmanager.android;
 
-import android.app.Activity;
 import android.arch.persistence.room.Room;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.support.v4.app.FragmentManager;
-import android.support.v7.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.medmanager.android.model.datamanagers.ActiveMedicationsDataManager;
@@ -18,7 +15,6 @@ import com.medmanager.android.model.storage.MedicationDatabase;
 import com.medmanager.android.presenter.adapter.ActiveMedicationsAdapter;
 import com.medmanager.android.presenter.adapter.AllMedicationAdapter;
 import com.medmanager.android.presenter.adapter.MonthlyCategoryAdapter;
-import com.medmanager.android.presenter.services.NotificationDispatcherService;
 import com.medmanager.android.presenter.utils.DeleteMedication;
 import com.medmanager.android.presenter.utils.InterfaceDataManager;
 import com.medmanager.android.presenter.utils.SaveMedicationToDatabase;
@@ -26,7 +22,6 @@ import com.medmanager.android.presenter.utils.UpdateMedicationCount;
 import com.medmanager.android.presenter.utils.UpdateMedicationToDatabase;
 import com.medmanager.android.presenter.viewpresenters.ActiveMedFragmentPresenter;
 import com.medmanager.android.presenter.viewpresenters.AllMedFragmentPresenter;
-import com.medmanager.android.views.activities.BaseActivity;
 import com.medmanager.android.views.fragments.ActiveMedicationFragment;
 import com.medmanager.android.views.fragments.DatePickerFragment;
 import com.medmanager.android.views.fragments.EditProfileFragment;
@@ -44,6 +39,7 @@ import dagger.Provides;
 
 /**
  * Created by ILENWABOR DAVID on 31/03/2018.
+ * Application module that provides all dependencies throughout the app
  */
 @Module
 public class MyApplicationModule {
@@ -85,8 +81,6 @@ public class MyApplicationModule {
     @Provides @Singleton
     UpdateMedicationCount providesCount(){return new UpdateMedicationCount(daggerApplication);}
 
-    @Provides @Singleton
-    NotificationDispatcherService providesService(){return new NotificationDispatcherService(daggerApplication);}
 
     @Provides @Singleton
     AllMedicationsDataManager providesAllMedsDataManager(){return new AllMedicationsDataManager(daggerApplication);}

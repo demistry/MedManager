@@ -9,6 +9,8 @@ import javax.inject.Inject;
 
 /**
  * Created by ILENWABOR DAVID on 07/04/2018.
+ *
+ * This class is used to inject all data manager subclasses
  */
 
 public class DataManagerClass {
@@ -19,8 +21,5 @@ public class DataManagerClass {
         if(context!=null)
         ((DaggerApplication)context.getApplicationContext()).getMyApplicationComponent().inject(this);
     }
-
-
-
 
 }

@@ -12,7 +12,10 @@ import java.util.List;
 
 /**
  * Created by ILENWABOR DAVID on 07/04/2018.
+ * This class queries the database for all medications that are currently active
  */
+
+
 
 public class ActiveMedicationsDataManager extends DataManagerClass {
     private static MedicationDAO sMedDao;
@@ -21,9 +24,16 @@ public class ActiveMedicationsDataManager extends DataManagerClass {
         super(context);
         sMedDao = medicationDAO;
     }
+
+    /**
+     * This method refreshes the active medications adapter
+     */
     public void requeryActiveMedications(){
-        new QueryRoom().execute(sMedDao);
+
+        if (medicationDAO!=null)new QueryRoom().execute(medicationDAO);
     }
+
+
 
     private static class QueryRoom extends AsyncTask<MedicationDAO, Void, List<MedInfo>> {
 
@@ -35,9 +45,7 @@ public class ActiveMedicationsDataManager extends DataManagerClass {
         @Override
         protected void onPostExecute(List<MedInfo> medInfo) {
             super.onPostExecute(medInfo);
-            //medInfos = medInfo;
             MedsSingleton.getInstance().setActiveMedInfo(medInfo);
-            //Log.v("TAG", "Active Med Array is " + medInfo.toString());
         }
     }
 }

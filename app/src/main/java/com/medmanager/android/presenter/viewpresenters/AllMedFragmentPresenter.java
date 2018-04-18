@@ -1,8 +1,6 @@
 package com.medmanager.android.presenter.viewpresenters;
 
 
-import android.util.Log;
-
 import com.medmanager.android.model.datamanagers.AllMedicationsDataManager;
 import com.medmanager.android.model.storage.MedInfo;
 import com.medmanager.android.presenter.utils.MedsSingleton;
@@ -22,11 +20,12 @@ import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by ILENWABOR DAVID on 07/04/2018.
+ * Preseter for All Medications Fragment
  */
 
 public class AllMedFragmentPresenter {
     private Disposable mDisposable;
-    private Observer<List<MedInfo>> listObserver;
+    private Observer<List<MedInfo>> mListObserver;
     private AllMedicationFragment mFragment;
 
     @Inject
@@ -36,13 +35,19 @@ public class AllMedFragmentPresenter {
 
     }
 
+    /**
+     * Method to set the fragment
+     * @param allMedicationFragment AllMedicationFragment
+     */
     public void setFragment(AllMedicationFragment allMedicationFragment){
         this.mFragment = allMedicationFragment;
     }
 
-
+    /**
+     * Method to reload all medications
+     */
     public void loadMedications(){
-        listObserver = new Observer<List<MedInfo>>(){
+        mListObserver = new Observer<List<MedInfo>>(){
 
             @Override
             public void onSubscribe(Disposable s) {
@@ -55,7 +60,6 @@ public class AllMedFragmentPresenter {
                 if (medInfos.isEmpty()) mFragment.setEmptyMedicationsView();
                 else{
                     mFragment.showMedications(medInfos);
-                    //Log.v("TAG", "From observer we have" + medInfos.get(medInfos.size()-1).getMedicationName());
                 }
             }
 
@@ -73,14 +77,17 @@ public class AllMedFragmentPresenter {
             io.reactivex.Observable.fromArray(MedsSingleton.getInstance().getAllMedicationsInfo())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribeOn(Schedulers.io())
-                    .subscribe(listObserver);
-            //Log.v("TAG", "Instance returns "+ MedsSingleton.getInstance().getAllMedicationsInfo().toString());
+                    .subscribe(mListObserver);
         }
         else{
             new AllMedicationsDataManager(mFragment.getContext()).getAllMedications();
         }
 
     }
+
+    /**
+     * Method to remove resources
+      */
     public void detachFragment(){
         if (mDisposable!=null) mDisposable.dispose();
     }

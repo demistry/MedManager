@@ -1,6 +1,7 @@
 package com.medmanager.android.views.fragments;
 
 import android.app.Dialog;
+import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -8,7 +9,6 @@ import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -28,7 +28,7 @@ public class SignInDialogFragment extends DialogFragment {
     private Button mSignInButton;
     private TextView mForgottenPassWordTextView;
 
-    private FirebaseAuth firebaseAuth;
+    private FirebaseAuth mFirebaseAuth;
 
     public SignInDialogFragment(){
         //Default Empty Constructor
@@ -45,14 +45,14 @@ public class SignInDialogFragment extends DialogFragment {
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.dialog_fragment_sign_in, container, false);
         mEmailEditText = view.findViewById(R.id.edit_text_dialog_email);
         mPassWordEditText = view.findViewById(R.id.edit_text_dialog_password);
         mForgottenPassWordTextView = view.findViewById(R.id.textview_dialog_sign_in);
         mSignInButton = view.findViewById(R.id.button_dialog_sign_in);
 
-        firebaseAuth = FirebaseAuth.getInstance();
+        mFirebaseAuth = FirebaseAuth.getInstance();
 
         mSignInButton.setOnClickListener(
                 new View.OnClickListener() {
@@ -61,15 +61,11 @@ public class SignInDialogFragment extends DialogFragment {
                         String emailText = mEmailEditText.getText().toString();
                         String passWord = mPassWordEditText.getText().toString();
                         if (!emailText.isEmpty() && !passWord.isEmpty()){
-                            UserProfileUtils.handleSignIn(getContext(), emailText, passWord, firebaseAuth);
+                            UserProfileUtils.handleSignIn(getContext(), emailText, passWord, mFirebaseAuth);
                         }
                     }
                 }
         );
-        //if (getDialog().getWindow()!=null){
-        //getDialog().getWindow().setSoftInputMode(
-        //        WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);}
-        //getDialog().setTitle("Sign in to App");
         return view;
     }
 }

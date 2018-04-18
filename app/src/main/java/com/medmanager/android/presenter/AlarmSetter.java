@@ -7,31 +7,30 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.os.Build;
-import android.os.SystemClock;
-import android.util.Log;
 
 import com.medmanager.android.ConstantClass;
 import com.medmanager.android.model.storage.MedInfo;
-
-import java.util.List;
-import java.util.Random;
-import java.util.concurrent.TimeUnit;
 
 import static android.content.Context.ALARM_SERVICE;
 
 /**
  * Created by ILENWABOR DAVID on 13/04/2018.
+ * Class for setting up alarm to a medication
  */
 
 public class AlarmSetter {
 
 
     private static long REMINDER_INTERVAL_SECONDS;
-    static AlarmManager alarmManagerElapsed;
-    static PendingIntent alarmIntentElapsed;
+    private static AlarmManager sAlarmManagerElapsed;
+    private static PendingIntent sAlarmIntentElapsed;
 
 
+    /**
+     * This method instantiates the alarm for a stored medication
+     * @param context Context
+     * @param medInfo MedInfo
+     */
     public static void setUpAlarm(Context context, MedInfo medInfo){
 
         if(medInfo.getMedicationInterval() == 30){
@@ -52,8 +51,7 @@ public class AlarmSetter {
         String serialized = medInfo.serialize();
 
         //send current med name along with extra
-        intent.putExtra("serial", medInfo.getMedicationName());
-        //intent.setAction()
+        intent.putExtra(ConstantClass.EXTRA_SERIAL, medInfo.getMedicationName());
 
         //save serialized info of current med
         int alarmIntentId = (int) System.currentTimeMillis();
@@ -61,31 +59,20 @@ public class AlarmSetter {
         editor.putString(medInfo.getMedicationName(), serialized);
         editor.putInt(medInfo.getMedicationDescription(), alarmIntentId);
 
-
-
-        //Setting pending intent to respond to broadcast sent by AlarmManager everyday at 8am
-        //for (int id =0; id<medInfoList.size(); id++)
-
-
-        //just replace with System.getcurrentmillis and delete shared pref line
-        alarmIntentElapsed = PendingIntent.getBroadcast(context, alarmIntentId, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        sAlarmIntentElapsed = PendingIntent.getBroadcast(context, alarmIntentId, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
 
         editor.apply();
 
 
         //getting instance of AlarmManager service
-        alarmManagerElapsed = (AlarmManager)context.getSystemService(ALARM_SERVICE);
+        sAlarmManagerElapsed = (AlarmManager)context.getSystemService(ALARM_SERVICE);
 
-
-        //Inexact alarm everyday since device is booted up. This is a better choice and
-        //scales well when device time settings/locale is changed
         //We're setting alarm to fire notification after med duration, and every med interval there on
-        if (alarmManagerElapsed!=null)
-        alarmManagerElapsed.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,
-//                System.currentTimeMillis() + REMINDER_INTERVAL_SECONDS,
-                5000,
-                60000, alarmIntentElapsed);
+        if (sAlarmManagerElapsed !=null)
+        sAlarmManagerElapsed.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,
+                System.currentTimeMillis() + REMINDER_INTERVAL_SECONDS,
+                REMINDER_INTERVAL_SECONDS, sAlarmIntentElapsed);
 
     }
 }

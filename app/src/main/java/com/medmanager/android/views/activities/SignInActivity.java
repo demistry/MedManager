@@ -21,12 +21,12 @@ import com.google.firebase.auth.FirebaseUser;
 import com.medmanager.android.R;
 import com.medmanager.android.presenter.utils.UserProfileUtils;
 import com.medmanager.android.views.fragments.SignInDialogFragment;
-/*
-* This activity is responsible for sign-in and sign up by the user*/
+
+/**
+ * This activity is responsible for sign-in and sign up by the user
+ */
 
 public class SignInActivity extends BaseActivity implements GoogleApiClient.OnConnectionFailedListener {
-
-    private FirebaseAuth.AuthStateListener mFireBaseAuthListener;
 
     private static final int RQ_SIGNIN_CODE = 100;
 
@@ -51,20 +51,10 @@ public class SignInActivity extends BaseActivity implements GoogleApiClient.OnCo
         mVerifyPasswordEditText = findViewById(R.id.edit_text_password_verify);
         mSignInTextView = findViewById(R.id.textview_sign_in);
 
-
         if (firebaseAuth.getCurrentUser() !=null){
             startActivity(new Intent(this, MainActivity.class));
             finish();
         }
-        mFireBaseAuthListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-               if (firebaseAuth.getCurrentUser()!=null){
-
-
-               }
-            }
-        };
 
 
         mSignInTextView.setPaintFlags(Paint.UNDERLINE_TEXT_FLAG);//used to underline the text of the forgotten password text view
@@ -98,7 +88,7 @@ public class SignInActivity extends BaseActivity implements GoogleApiClient.OnCo
         mGoogleApiClient = UserProfileUtils.handleSignUp(this, this);
         Intent googleSignInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
         startActivityForResult(googleSignInIntent,RQ_SIGNIN_CODE);
-        //finish();
+
     }
 
     public void handleEmailSignUp(View view) {
@@ -121,6 +111,7 @@ public class SignInActivity extends BaseActivity implements GoogleApiClient.OnCo
     public void handleEmailSignIn(View view) {
         SignInDialogFragment dialogFragment = new SignInDialogFragment();
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.setCustomAnimations(FragmentTransaction.TRANSIT_FRAGMENT_FADE, FragmentTransaction.TRANSIT_FRAGMENT_CLOSE);
         fragmentTransaction.add(R.id.sign_up_layout, dialogFragment,null);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();

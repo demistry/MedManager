@@ -10,6 +10,7 @@ import com.medmanager.android.R;
 
 /**
  * Created by ILENWABOR DAVID on 06/04/2018.
+ * View Holder class for all medications
  */
 
 public class AllMedicationHolder extends RecyclerView.ViewHolder {

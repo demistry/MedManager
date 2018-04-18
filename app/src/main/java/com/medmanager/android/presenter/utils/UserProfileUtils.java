@@ -32,7 +32,12 @@ import com.medmanager.android.views.activities.SignInActivity;
 
 public class UserProfileUtils {
 
-    //This method handles user sign up
+    /**
+     * Thios method handles user google signup
+     * @param context Context
+     * @param listener Listener
+     * @return int
+     */
     public static GoogleApiClient handleSignUp(Context context, GoogleApiClient.OnConnectionFailedListener listener){
         GoogleSignInOptions googleSignInOptions = buildGoogleSignIn(context);
 
@@ -42,7 +47,13 @@ public class UserProfileUtils {
                 .build();
     }
 
-    //This method handles user sign in
+    /**
+     * This method handles user sign in
+     * @param context Context
+     * @param emailText String
+     * @param passWord String
+     * @param firebaseAuth FireBaseAuth
+     */
     public static void handleSignIn(final Context context, String emailText, String passWord, FirebaseAuth firebaseAuth){
         firebaseAuth.signInWithEmailAndPassword(emailText, passWord)
         .addOnCompleteListener((Activity) context, new OnCompleteListener<AuthResult>() {
@@ -61,6 +72,14 @@ public class UserProfileUtils {
             }
         });
     }
+
+    /**
+     * This method handles user sign up by email
+     * @param signInActivity SignInActivity
+     * @param emailText String
+     * @param verifiedPassWord String
+     * @param mFireBaseAuthInstance FireBaseAuth
+     */
     public static void handleEmailSignUp(final SignInActivity signInActivity, String emailText, String verifiedPassWord, FirebaseAuth mFireBaseAuthInstance) {
         mFireBaseAuthInstance.createUserWithEmailAndPassword(emailText, verifiedPassWord)
                 .addOnCompleteListener(signInActivity, new OnCompleteListener<AuthResult>() {
@@ -78,7 +97,12 @@ public class UserProfileUtils {
 
     }
 
-    //This method handles linking of obtained google account to fire-base
+    /**
+     * This method handles linking of obtained google account to fire-base
+     * @param context Context
+     * @param account GoogleSignInAccount
+     * @param firebaseAuth FireBaseAuth
+     */
     public static void linkToFireBase(final Context context, GoogleSignInAccount account, FirebaseAuth firebaseAuth){
         AuthCredential credential = GoogleAuthProvider.getCredential(account.getIdToken(),null);
         firebaseAuth.signInWithCredential(credential)
@@ -95,6 +119,12 @@ public class UserProfileUtils {
                 });
     }
 
+
+    /**
+     * This method handles google sign in
+     * @param context Context
+     * @return GoogleSignInOptions
+     */
     private static GoogleSignInOptions buildGoogleSignIn(Context context){
         return new
                 GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -105,6 +135,13 @@ public class UserProfileUtils {
     }
 
 
+    /**
+     * This method handles editing of user profile
+     * @param context Context
+     * @param firebaseAuth FireBaseAuth
+     * @param displayName String
+     * @param filePath Uri
+     */
     public static void handleProfileEdit(final Context context, FirebaseAuth firebaseAuth, String displayName, Uri filePath) {
         FirebaseUser user = firebaseAuth.getCurrentUser();
         UserProfileChangeRequest profileChangeRequest = new UserProfileChangeRequest.Builder()

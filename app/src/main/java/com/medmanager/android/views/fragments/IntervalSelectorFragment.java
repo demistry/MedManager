@@ -2,7 +2,6 @@ package com.medmanager.android.views.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,10 +11,7 @@ import android.widget.ListView;
 
 import com.medmanager.android.DaggerApplication;
 import com.medmanager.android.R;
-import com.medmanager.android.presenter.utils.InterfaceDataManager;
 import com.medmanager.android.presenter.utils.StringProcessor;
-
-import javax.inject.Inject;
 
 /**
  * Created by ILENWABOR DAVID on 04/04/2018.
@@ -23,11 +19,11 @@ import javax.inject.Inject;
 
 public class IntervalSelectorFragment extends BaseFragment {
 
-    private ListView listView;
+    private ListView mListView;
 
-    private ArrayAdapter<String> arrayAdapter;
+    private ArrayAdapter<String> mArrayAdapter;
 
-    private IntervalSelectorInterface selectorInterface;
+    private IntervalSelectorInterface mSelectorInterface;
 
     public IntervalSelectorFragment(){
 
@@ -37,18 +33,18 @@ public class IntervalSelectorFragment extends BaseFragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ((DaggerApplication)getActivity().getApplication()).getMyApplicationComponent().inject(this);
-        selectorInterface = interfaceDataManager;
+        mSelectorInterface = interfaceDataManager;
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_interval_selector, container, false);
-        listView = view.findViewById(R.id.list_interval);
-        arrayAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, getContext().getResources().getStringArray(R.array.interval_array));
-        listView.setAdapter(arrayAdapter);
+        mListView = view.findViewById(R.id.list_interval);
+        mArrayAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, getContext().getResources().getStringArray(R.array.interval_array));
+        mListView.setAdapter(mArrayAdapter);
 
-        listView.setOnItemClickListener(
+        mListView.setOnItemClickListener(
                 new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -59,13 +55,16 @@ public class IntervalSelectorFragment extends BaseFragment {
                         }else{
                             medInterval = StringProcessor.processString(intervalText);
                         }
-                        selectorInterface.intervalSelected(medInterval, intervalText);
+                        mSelectorInterface.intervalSelected(medInterval, intervalText);
                     }
                 }
         );
         return view;
     }
 
+    /**
+     * This interface handles drug interval selection
+     */
     public interface IntervalSelectorInterface{
         void intervalSelected(int medInterval, String intervalText);
     }

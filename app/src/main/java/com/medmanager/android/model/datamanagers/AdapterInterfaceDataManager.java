@@ -3,7 +3,6 @@ package com.medmanager.android.model.datamanagers;
 import android.content.Context;
 import android.content.Intent;
 
-import com.medmanager.android.DaggerApplication;
 import com.medmanager.android.model.storage.MedInfo;
 import com.medmanager.android.presenter.adapter.AllMedicationAdapter;
 import com.medmanager.android.views.activities.AboutMedicationActivity;
@@ -16,8 +15,8 @@ import com.medmanager.android.views.activities.AboutMedicationActivity;
 
 public class AdapterInterfaceDataManager implements AllMedicationAdapter.MedicationClickedInterface {
 
-    private String mMedicationName;
-    private String mMedicationDescription;
+    private String medicationName;
+    private String medicationDescription;
     private String startDate;//
     private String startTime;//
     private String endDate;//
@@ -25,9 +24,13 @@ public class AdapterInterfaceDataManager implements AllMedicationAdapter.Medicat
     private String doseNumber;
     private String medicationType;//
     private int dosageCount;
+
+
+    /**
+     * Medication interval is number of hours that must pass between taking meds
+     */
     private int medicationInterval;
 
-    //med interval is number of hours that must pass between taking meds
 
     private boolean isMedicationStarted;//
 
@@ -41,8 +44,8 @@ public class AdapterInterfaceDataManager implements AllMedicationAdapter.Medicat
 
     @Override
     public void onMedicationClicked(MedInfo medInfo, Context context) {
-        this.mMedicationName = medInfo.getMedicationName();
-        this.mMedicationDescription = medInfo.getMedicationDescription();
+        this.medicationName = medInfo.getMedicationName();
+        this.medicationDescription = medInfo.getMedicationDescription();
         this.startDate = medInfo.getStartDate();
         this.startTime = medInfo.getStartTime();
         this.endDate = medInfo.getEndDate();
@@ -58,12 +61,12 @@ public class AdapterInterfaceDataManager implements AllMedicationAdapter.Medicat
         context.startActivity(new Intent(context, AboutMedicationActivity.class));
     }
 
-    public String getmMedicationName() {
-        return mMedicationName;
+    public String getMedicationName() {
+        return medicationName;
     }
 
-    public String getmMedicationDescription() {
-        return mMedicationDescription;
+    public String getMedicationDescription() {
+        return medicationDescription;
     }
 
     public String getStartDate() {

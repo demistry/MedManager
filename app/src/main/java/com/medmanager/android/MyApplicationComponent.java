@@ -1,14 +1,11 @@
 package com.medmanager.android;
 
-import com.medmanager.android.model.datamanagers.AllMedicationsDataManager;
 import com.medmanager.android.model.datamanagers.DataManagerClass;
-import com.medmanager.android.model.di.MedModule;
 import com.medmanager.android.presenter.adapter.ActiveMedicationsAdapter;
 import com.medmanager.android.presenter.adapter.AllMedicationAdapter;
 
 import com.medmanager.android.presenter.adapter.MonthlyCategoryAdapter;
 import com.medmanager.android.presenter.adapter.SearchQueryAdapter;
-import com.medmanager.android.presenter.services.NotificationDispatcherService;
 import com.medmanager.android.presenter.utils.DeleteMedication;
 import com.medmanager.android.presenter.utils.SaveMedicationToDatabase;
 import com.medmanager.android.presenter.utils.UpdateMedicationCount;
@@ -26,6 +23,7 @@ import dagger.Component;
 
 /**
  * Created by ILENWABOR DAVID on 31/03/2018.
+ * Dagger interface for dependency injection throughout the app
  */
 @Singleton
 @Component(modules = {MyApplicationModule.class})
@@ -42,7 +40,6 @@ public interface MyApplicationComponent {
     void inject(ActiveMedicationsAdapter activeMedicationsAdapter);
     void inject(DataManagerClass dataManagerClass);
     void inject(AllMedFragmentPresenter fragmentPresenter);
-    void inject(NotificationDispatcherService service);
 
     void inject(MonthlyCategoryAdapter monthlyCategoryAdapter);
 

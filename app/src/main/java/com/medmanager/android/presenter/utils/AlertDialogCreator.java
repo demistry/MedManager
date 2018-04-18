@@ -21,6 +21,13 @@ import com.medmanager.android.presenter.AlarmManagerBroadcast;
  */
 
 public class AlertDialogCreator {
+
+    /**
+     *This method is used to create an alert dialog for warning the user about to delete a medication
+     * @param context @tag Pass in context
+     * @param deleteMedication @tag Pass in DeleteMedication object
+     * @param medInfo @tag Pass in Medication information object
+     */
     public static void createDeleteDialog(final Context context, final DeleteMedication deleteMedication, final MedInfo medInfo) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setTitle("Delete Medication")

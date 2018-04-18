@@ -33,7 +33,7 @@ public class EditProfileFragment extends DialogFragment {
     private ImageButton mButton;
     private Button mUpdateButton;
 
-    private ProfileEditingInterface profileEditingInterface;
+    private ProfileEditingInterface mProfileEditingInterface;
     private Bitmap mBitmap;
 
     public EditProfileFragment() {
@@ -58,11 +58,9 @@ public class EditProfileFragment extends DialogFragment {
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        profileEditingInterface = (MainActivity) activity;
+        mProfileEditingInterface = (MainActivity) activity;
 
     }
-
-
 
 
     @Override
@@ -79,7 +77,7 @@ public class EditProfileFragment extends DialogFragment {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        profileEditingInterface.handleEditProfile(mEditText.getText().toString());
+                        mProfileEditingInterface.handleEditProfile(mEditText.getText().toString());
 //                        getDialog().dismiss();
                     }
                 }
@@ -89,7 +87,7 @@ public class EditProfileFragment extends DialogFragment {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        mImageView.setImageBitmap(profileEditingInterface.openImageGallery());
+                        mImageView.setImageBitmap(mProfileEditingInterface.openImageGallery());
                         Toast.makeText(mContext, "Button clicked", Toast.LENGTH_SHORT).show();
                     }
                 }
@@ -113,6 +111,9 @@ public class EditProfileFragment extends DialogFragment {
         mBitmap = bitmap;
     }
 
+    /**\
+     * This interface handles user profile editing
+     */
     public interface ProfileEditingInterface{
         Bitmap openImageGallery();
         void handleEditProfile(String displayName);

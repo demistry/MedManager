@@ -27,6 +27,7 @@ import javax.inject.Inject;
 
 /**
  * Created by ILENWABOR DAVID on 09/04/2018.
+ * This class holds the adapter for displaying all medications by month
  */
 
 public class MonthlyCategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -37,7 +38,6 @@ public class MonthlyCategoryAdapter extends RecyclerView.Adapter<RecyclerView.Vi
     @Inject
     Context context;
 
-    private static HashMap<Integer, List<MedInfo>> hashMap = new HashMap<>();
     private List<MonthlyMedsSection> mMedInfos;
 
     public MonthlyCategoryAdapter(Context context){
@@ -99,40 +99,11 @@ public class MonthlyCategoryAdapter extends RecyclerView.Adapter<RecyclerView.Vi
         else return 1;
     }
 
+    /**
+     This method is used to supply the list of medication information by section and by row
+     *
+     */
     public void addSections(List<MonthlyMedsSection> medInfo) {
         this.mMedInfos = medInfo;
-//        HashMap<Integer, List<MedInfo>> hashMap = groupData(medInfo);
-//        List<MonthlyMedsSection> medsSections = new ArrayList<>();
-//        for (int monthType : hashMap.keySet()){
-//            MonthlyMedsSection month= MonthlyMedsSection.createSection(monthType);
-//            medsSections.add(month);
-//            for (MedInfo medInfo1 : hashMap.get(monthType)){
-//                if(medInfo1!=null){
-//                    MonthlyMedsSection rowItem = MonthlyMedsSection.createRow(medInfo1);
-//                    medsSections.add(rowItem);
-//                }
-//
-//            }
-//        }
-        //this.mMedInfos = medsSections;
-    }
-
-    private HashMap<Integer, List<MedInfo>> groupData(List<MonthlyMedsSection> medsSections){
-
-
-        for (MonthlyMedsSection monthlyMedsSection : medsSections) {
-            int hashMapkey = monthlyMedsSection.getSection();
-            if (monthlyMedsSection.getRow() != null) {
-                int rowType = monthlyMedsSection.getRow().getMonthType();
-
-
-                //add pojo against key
-                List<MedInfo> sectionList = new ArrayList<>();
-                sectionList.add(monthlyMedsSection.getRow());
-                hashMap.put(hashMapkey, sectionList);
-            }
-        }
-
-        return hashMap;
     }
 }

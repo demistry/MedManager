@@ -21,6 +21,8 @@ import javax.inject.Inject;
 
 /**
  * Created by ILENWABOR DAVID on 05/04/2018.
+ * This class provides a base for injection of dependencies to fragments via dagger
+ * It is subclassed by every fragment in the application
  */
 
 public class BaseFragment extends Fragment {

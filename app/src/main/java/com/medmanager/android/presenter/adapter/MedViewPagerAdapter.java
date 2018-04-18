@@ -10,16 +10,17 @@ import com.medmanager.android.views.fragments.MonthlyMedicationFragment;
 
 /**
  * Created by ILENWABOR DAVID on 05/04/2018.
+ * Adapter class to display fragments in viewpager
  */
 
 public class MedViewPagerAdapter extends FragmentPagerAdapter {
 
 
-    private int tabCount;
+    private int mTabCount;
 
     public MedViewPagerAdapter(FragmentManager fm, int tabCount) {
         super(fm);
-        this.tabCount = tabCount;
+        this.mTabCount = tabCount;
     }
 
     @Override
@@ -34,6 +35,6 @@ public class MedViewPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-        return tabCount;
+        return mTabCount;
     }
 }

@@ -9,7 +9,6 @@ import com.medmanager.android.model.datamanagers.AllMedicationsDataManager;
 import com.medmanager.android.model.storage.MedInfo;
 import com.medmanager.android.model.storage.MedicationDAO;
 import com.medmanager.android.presenter.AlarmSetter;
-import com.medmanager.android.presenter.services.NotificationDispatcherService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,62 +17,59 @@ import javax.inject.Inject;
 
 /**
  * Created by ILENWABOR DAVID on 13/04/2018.
+ * Class for updating medication to database
  */
 
 public class UpdateMedicationToDatabase {
-    static MedInfo medInfo;
-    //    @Inject
-    static List<MedInfo> medInfoList;
     @Inject
     MedicationDAO medicationDAO;
     @Inject
     AllMedicationsDataManager dataManager;
     @Inject
     ActiveMedicationsDataManager activeMedicationsDataManager;
-    @Inject
-    NotificationDispatcherService notificationDispatcherService;
 
-    private static MedicationDAO asyncMedDao;
-    private static List<MedInfo> asyncMedInfo;
-    private final SaveMedicationToDatabase.ShowNotificationForMedInterface medInterface = notificationDispatcherService;
+    private static MedInfo sMedInfo;
+    private static List<MedInfo> sMedInfoList;
+    private static MedicationDAO sAsyncMedDao;
+    private static List<MedInfo> sAsyncMedInfo;
     private Context mContext;
 
 
     public UpdateMedicationToDatabase(Context context){
         mContext = context;
         ((DaggerApplication)context).getMyApplicationComponent().inject(this);
-        asyncMedDao = medicationDAO;
-        asyncMedInfo = medInfoList;
-        medInfo = new MedInfo();
-        medInfoList = new ArrayList<>();
+        sAsyncMedDao = medicationDAO;
+        sAsyncMedInfo = sMedInfoList;
+        sMedInfo = new MedInfo();
+        sMedInfoList = new ArrayList<>();
     }
 
     /**
      * This method deletes a previous medication information and inserts a new one in its place**/
     public void updateMedToRoomDatabase(Context context, String medName, String medDescription, String startDate, String startTime, String endDate, String endTime,
                                       int monthType, String doseNumber, int interval, boolean isMedStarted, String medicationType, MedInfo prevMedInfo){
-        medInfo.setMedicationName(medName);
-        medInfo.setMedicationDescription(medDescription);
-        medInfo.setStartDate(startDate);
-        medInfo.setStartTime(startTime);
-        medInfo.setEndDate(endDate);
-        medInfo.setEndTime(endTime);
-        medInfo.setMonthType(monthType);
-        medInfo.setDoseNumber(doseNumber);
-        medInfo.setMedicationInterval(interval);
-        medInfo.setMedicationStarted(isMedStarted);
-        medInfo.setMedicationType(medicationType);
+        sMedInfo.setMedicationName(medName);
+        sMedInfo.setMedicationDescription(medDescription);
+        sMedInfo.setStartDate(startDate);
+        sMedInfo.setStartTime(startTime);
+        sMedInfo.setEndDate(endDate);
+        sMedInfo.setEndTime(endTime);
+        sMedInfo.setMonthType(monthType);
+        sMedInfo.setDoseNumber(doseNumber);
+        sMedInfo.setMedicationInterval(interval);
+        sMedInfo.setMedicationStarted(isMedStarted);
+        sMedInfo.setMedicationType(medicationType);
         AlertDialogCreator.cancelAlarm(context, prevMedInfo);
-        //medInfo.setDosageCount(0); //start all dosage count from 0
+        //sMedInfo.setDosageCount(0); //start all dosage count from 0
 
-        medInfoList.add(medInfo);
+        sMedInfoList.add(sMedInfo);
         if (isMedStarted){
-//            notificationDispatcherService.dispatchJob(context, medInfo);
-//            NotificationPresenter.sendNotification(context, medInfo);
-            AlarmSetter.setUpAlarm(context, medInfo);
+//            notificationDispatcherService.dispatchJob(context, sMedInfo);
+//            NotificationPresenter.sendNotification(context, sMedInfo);
+            AlarmSetter.setUpAlarm(context, sMedInfo);
         }
 
-        new UpdateAsync().execute(prevMedInfo, medInfo);
+        new UpdateAsync().execute(prevMedInfo, sMedInfo);
         dataManager.getAllMedications();
         activeMedicationsDataManager.requeryActiveMedications();
     }
@@ -85,9 +81,9 @@ public class UpdateMedicationToDatabase {
 
         @Override
         protected List<MedInfo> doInBackground(MedInfo... medInfos) {
-            asyncMedDao.deleteMedInfo(medInfos[0]);
-            asyncMedDao.insertMedInfo(medInfos[1]);
-            return asyncMedDao.getAllMedications();
+            sAsyncMedDao.deleteMedInfo(medInfos[0]);
+            sAsyncMedDao.insertMedInfo(medInfos[1]);
+            return sAsyncMedDao.getAllMedications();
         }
 
         @Override

@@ -18,21 +18,20 @@ import com.medmanager.android.presenter.utils.MedsSingleton;
 import com.medmanager.android.presenter.utils.StringProcessor;
 import com.medmanager.android.views.activities.AboutMedicationActivity;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static android.content.Context.NOTIFICATION_SERVICE;
 
 /**
  * Created by ILENWABOR DAVID on 13/04/2018.
+ * Broadcast receiver for responding to alarm
  */
 
 public class AlarmManagerBroadcast extends BroadcastReceiver {
     private Context mContext;
-    private static MedInfo mMedInfos;
     private NotificationCompat.Builder mBuilder;
     private Notification mNotification;
-    private NotificationManager notificationManager;
+    private NotificationManager mNotificationManager;
     private Intent mNotifIntent;
 
     @Override
@@ -49,7 +48,7 @@ public class AlarmManagerBroadcast extends BroadcastReceiver {
             }
         }
         if (context!=null){
-            String medName = intent.getStringExtra("serial");
+            String medName = intent.getStringExtra(ConstantClass.EXTRA_SERIAL);
             SharedPreferences preferences = context.getSharedPreferences(ConstantClass.PREF_SHARED, Context.MODE_PRIVATE);
             String tag = preferences.getString(medName, null);
             MedInfo medInfo = MedInfo.create(tag);
@@ -65,10 +64,10 @@ public class AlarmManagerBroadcast extends BroadcastReceiver {
 
             mNotification.flags = Notification.FLAG_AUTO_CANCEL;
 
-            notificationManager = (NotificationManager) context.getSystemService(NOTIFICATION_SERVICE);
+            mNotificationManager = (NotificationManager) context.getSystemService(NOTIFICATION_SERVICE);
             mNotification.priority = Notification.PRIORITY_HIGH;
-            if (notificationManager!=null)
-                notificationManager.notify(notificationTag,
+            if (mNotificationManager !=null)
+                mNotificationManager.notify(notificationTag,
                         0, mNotification);
         }
 
@@ -76,13 +75,20 @@ public class AlarmManagerBroadcast extends BroadcastReceiver {
 
     }
 
+
+    /**
+     * This method setups the remote view for notification display
+     * @param tag String
+     * @param notifTag String
+     * @return RemoteViews
+     */
     private RemoteViews setUpRemoteView(String tag, String notifTag){
         RemoteViews remoteViews = new RemoteViews(mContext.getPackageName(), R.layout.item_notification_layout);
         //String serializedDataFromPref =  sharedPreferences.getString(tag, null);
         PendingIntent pendingIntent = PendingIntent.getActivity(mContext, (int) System.currentTimeMillis(),
-                new Intent(mContext, AboutMedicationActivity.class).putExtra("notificationItem",tag)
-                        .putExtra("notifTag", notifTag)
-                        .putExtra("id", 0)
+                new Intent(mContext, AboutMedicationActivity.class).putExtra(ConstantClass.EXTRA_NOTIFICATION_ITEM,tag)
+                        .putExtra(ConstantClass.EXTRA_NOTIFICATION_TAG, notifTag)
+                        .putExtra(ConstantClass.EXTRA_NOTIFICATION_ID, 0)
                         .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK),
                 PendingIntent.FLAG_UPDATE_CURRENT);
 

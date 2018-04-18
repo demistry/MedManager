@@ -44,7 +44,18 @@
 
     <string name="action_settings">Settings</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="dosage_count">Dosage Count</string>
+    <string name="its_lonely_here">Click + to add Med</string>
+    <string name="add_med">Click <h2>+</h2> Button to add Medication</string>
+    <string name="descr_pill_intake">pills per intake</string>
+    <string name="descr_syrup_intake">spoons per intake</string>
+    <string name="descr_injection_intake">shots per intake</string>
+    <string name="med_state_ongoing">On going</string>
+    <string name="med_state_not_started">Not Started</string>
+    <string name="time_interval">hours interval</string>
+    <string name="one_hour_interval">hour interval</string>
+    <string name="minutes_interval">minutes interval</string>
+    <string name="minutes">minutes</string>
+    <string name="hour">hour</string>
+    <string name="hours">hours</string>
 </resources>

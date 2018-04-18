@@ -2,6 +2,7 @@ package com.medmanager.android.views.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -10,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.medmanager.android.R;
+import com.medmanager.android.model.datamanagers.ActiveMedicationsDataManager;
 import com.medmanager.android.model.storage.MedInfo;
 import com.medmanager.android.presenter.utils.MedsSingleton;
 import com.medmanager.android.presenter.utils.RecyclerViewItemDivider;
@@ -24,6 +26,8 @@ import java.util.List;
 public class ActiveMedicationFragment extends BaseFragment implements ViewPresenterInterface.ActiveMedsInterface {
 
     private RecyclerView mActiveMedsRecyclerView;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
+    private View mEmptyView;
 
     public ActiveMedicationFragment(){
 
@@ -33,9 +37,7 @@ public class ActiveMedicationFragment extends BaseFragment implements ViewPresen
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         activeMedFragmentPresenter.setFragment(this);
-        //FragmentSingleton.getInstance().setFragment(this);
         activeMedFragmentPresenter.loadActiveMedications();
-        Log.v("TAG", "Active MED Fragmeent OnCreate called");
     }
 
     @Nullable
@@ -43,12 +45,40 @@ public class ActiveMedicationFragment extends BaseFragment implements ViewPresen
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_active_meds, container, false);
         mActiveMedsRecyclerView = view.findViewById(R.id.recycler_view_active_category);
+        mSwipeRefreshLayout = view.findViewById(R.id.swipe_active_meds);
+        mEmptyView = view.findViewById(R.id.empty_root);
 
         mActiveMedicationsAdapter.setActiveMedInfo(MedsSingleton.getInstance().getActiveMedInfo());
         mActiveMedsRecyclerView.addItemDecoration(new RecyclerViewItemDivider(getContext()));
         mActiveMedsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mActiveMedsRecyclerView.setAdapter(mActiveMedicationsAdapter);
+
+        mSwipeRefreshLayout.setOnRefreshListener(
+                new SwipeRefreshLayout.OnRefreshListener() {
+                    @Override
+                    public void onRefresh() {
+                        activeMedFragmentPresenter.loadActiveMedications();
+                        new ActiveMedicationsDataManager(getContext()).requeryActiveMedications();
+                        mActiveMedicationsAdapter.notifyDataSetChanged();
+                        mActiveMedsRecyclerView.setAdapter(mActiveMedicationsAdapter);
+                        mSwipeRefreshLayout.setRefreshing(false);
+                    }
+                }
+        );
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (mActiveMedicationsAdapter.getItemCount()==0){
+            mEmptyView.setVisibility(View.VISIBLE);
+            mActiveMedsRecyclerView.setVisibility(View.GONE);
+        }
+        else{
+            mEmptyView.setVisibility(View.GONE);
+            mActiveMedsRecyclerView.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override

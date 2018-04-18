@@ -7,15 +7,24 @@ import com.medmanager.android.model.storage.MedInfo;
 import com.medmanager.android.presenter.holder.AllMedicationHolder;
 
 import java.util.List;
+import java.util.Locale;
 
 import io.reactivex.annotations.Nullable;
 
 /**
  * Created by ILENWABOR DAVID on 11/04/2018.
+ * This class is used for binding views from viewholder to adapter
  */
 
 public class BindViewsUtils {
 
+
+    /**
+     * Bind Views from medication holder to adapter
+     * @param holder /
+     * @param mMedInfos /
+     * @param position /
+     */
     public static void bindViews(AllMedicationHolder holder, List<MedInfo> mMedInfos, int position){
         if (mMedInfos!=null){
             holder.mMedName.setText(mMedInfos.get(position).getMedicationName());
@@ -65,7 +74,13 @@ public class BindViewsUtils {
         }
 
     }
-    //This method is used to bind rows of month category
+
+    /**
+     * This method is used to bind rows of month category
+     * @param monthViewHolder @MonthViewHolder
+     * @param monthlyMedsSections @MonthlyMedsSections
+     * @param position @Position
+     */
     public static void bindMonthCategory(AllMedicationHolder monthViewHolder, List<MonthlyMedsSection> monthlyMedsSections, int position){
         //Log.v("TAG", "row names are "+ mMedInfos.get(position).getRow().getMedicationName());
         monthViewHolder.mMedName.setText(monthlyMedsSections.get(position).getRow().getMedicationName());
@@ -75,7 +90,7 @@ public class BindViewsUtils {
             if(doseNumber.equals("1"))
                 monthViewHolder.mMedPillsNumber.setText( doseNumber + " pill per intake");
             else
-                monthViewHolder.mMedPillsNumber.setText( doseNumber + " pills per intake");
+                monthViewHolder.mMedPillsNumber.setText(String.format(Locale.getDefault(),"%s%d", doseNumber, R.string.descr_pill_intake));
             monthViewHolder.mMedTypeImage.setImageResource(R.drawable.ic_pill);
         }
         else if (medType.equals("Syrup")){
@@ -83,7 +98,7 @@ public class BindViewsUtils {
             if(doseNumber.equals("1"))
                 monthViewHolder.mMedPillsNumber.setText(doseNumber + " spoon per intake");
             else
-                monthViewHolder.mMedPillsNumber.setText(doseNumber + " spoons per intake");
+                monthViewHolder.mMedPillsNumber.setText(String.format(Locale.getDefault(),"%s%d", doseNumber, R.string.descr_syrup_intake));
 
             monthViewHolder.mMedTypeImage.setImageResource(R.drawable.ic_syrup);
         } else if (medType.equals("Injection")){
@@ -91,25 +106,25 @@ public class BindViewsUtils {
             if(doseNumber.equals("1"))
                 monthViewHolder.mMedPillsNumber.setText(doseNumber + " shot per intake");
             else
-                monthViewHolder.mMedPillsNumber.setText(doseNumber + " shots per intake");
+                monthViewHolder.mMedPillsNumber.setText(String.format(Locale.getDefault(),"%s%d", doseNumber, R.string.descr_injection_intake));
             monthViewHolder.mMedTypeImage.setImageResource(R.drawable.ic_injection);
         }
         monthViewHolder.mMedAvatar.setText(StringProcessor.extractFirstLetter(monthlyMedsSections.get(position).getRow().getMedicationName()));
         if (monthlyMedsSections.get(position).getRow().isMedicationStarted()){
             monthViewHolder.mMedStatusImage.setImageResource(R.drawable.ic_check_circle_black_24dp);
-            monthViewHolder.mMedStatus.setText("On going");
+            monthViewHolder.mMedStatus.setText(R.string.med_state_ongoing);
         }
         else{
             monthViewHolder.mMedStatusImage.setImageResource(R.drawable.ic_warning_black_24dp);
-            monthViewHolder.mMedStatus.setText("Not Started");
+            monthViewHolder.mMedStatus.setText(R.string.med_state_not_started);
         }
         int interval = monthlyMedsSections.get(position).getRow().getMedicationInterval();
         if (interval == 30){
-            monthViewHolder.mMedInterval.setText(interval + " minutes interval");
+            monthViewHolder.mMedInterval.setText(interval + R.string.minutes_interval);
         } else
         if (interval == 1){
-            monthViewHolder.mMedInterval.setText(interval + " hour interval");
+            monthViewHolder.mMedInterval.setText(interval + R.string.one_hour_interval);
         } else
-            monthViewHolder.mMedInterval.setText(interval + " hours interval");
+            monthViewHolder.mMedInterval.setText(interval + R.string.time_interval);
     }
 }

@@ -36,13 +36,6 @@
         <activity android:name=".views.activities.AboutMedicationActivity"
             />
 
-        <service android:name=".presenter.services.NotificationDispatcherService"
-            android:exported="false"
-            android:permission="android.permission.BIND_JOB_SERVICE">
-            <intent-filter>
-                <action android:name="com.firebase.jobdispatcher.ACTION_EXECUTE"/>
-            </intent-filter>
-        </service>
         <receiver android:name=".presenter.AlarmManagerBroadcast">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED"/>

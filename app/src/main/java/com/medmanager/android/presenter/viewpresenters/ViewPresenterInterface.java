@@ -7,6 +7,7 @@ import java.util.List;
 
 /**
  * Created by ILENWABOR DAVID on 07/04/2018.
+ * Interface for interactions between presenter and views
  */
 
 public interface ViewPresenterInterface {

@@ -10,11 +10,12 @@ import com.medmanager.android.R;
 
 /**
  * Created by ILENWABOR DAVID on 06/04/2018.
+ * View Holder class for all active medications
  */
 
 public class ActiveMedicationHolder extends AllMedicationHolder {
-    public TextView mMedName, mMedInterval, mMedPillsNumber, mMedStatus, mMedAvatar;
-    public ImageView mMedStatusImage, mMedTypeImage;
+    private TextView mMedName, mMedInterval, mMedPillsNumber, mMedStatus, mMedAvatar;
+    private ImageView mMedStatusImage, mMedTypeImage;
     public RelativeLayout relativeLayout;
 
     public ActiveMedicationHolder(View itemView) {

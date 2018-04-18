@@ -15,24 +15,45 @@ import java.util.Locale;
 public class StringProcessor {
 
 
-
+    /**
+     * Extract first number from string
+     * @param string String
+     * @return int
+     */
     public static int processString(String string){
         StringBuilder stringBuilder = new StringBuilder(string);
         String substring = stringBuilder.substring(0,1);
         return Integer.parseInt(substring);
     }
 
+    /**
+     * Extracts first letter from string
+     * @param string String
+     * @return String
+     */
     public static String extractFirstLetter(String string){
         StringBuilder stringBuilder = new StringBuilder(string);
         return stringBuilder.substring(0,1);
     }
 
+
+    /**
+     * Converts current Date object to string
+     * @return String
+     */
     public static String convertDateToString(){
         Date date = Calendar.getInstance().getTime();
         SimpleDateFormat dateFormat = new SimpleDateFormat("EEE, MMM d, yyyy", Locale.ENGLISH);
         return dateFormat.format(date);
     }
 
+    /**
+     * Displays notification description to notification
+     * @param medName String
+     * @param dosageNumber String
+     * @param medicationType String
+     * @return String
+     */
     public static String displayNotifDescription(String medName, String dosageNumber, String medicationType){
         if(!dosageNumber.isEmpty())
         switch (medicationType) {
@@ -56,36 +77,33 @@ public class StringProcessor {
         return "";
     }
 
+    /**
+     * Converts an integer value of month to its equivalent
+     * @param monthType int
+     * @return String
+     */
     public static String convertIntToMonthString(int monthType){
         Date date = new Date(0, monthType + 1, 0);
         SimpleDateFormat dateFormat = new SimpleDateFormat("LLLL", Locale.getDefault());
         //Log.v("TAG", "Month saved is " + dateFormat.format(date) );
         return dateFormat.format(date);
     }
-    public static int convertStringToMonthInt(String monthName){
-        switch(monthName){
-            case "January": return 1;
-            case "February": return 2;
-            case "March": return 3;
-            case "April": return 4;
-            case "May": return 5;
-            case "June": return 6;
-            case "July": return 7;
-            case "August": return 8;
-            case "September": return 9;
-            case "October": return 10;
-            case "November": return 11;
-            case "December": return 12;
-            default: return 15;
-        }
-    }
 
+    /**
+     * Convert current Time instance to String
+     * @return String
+     */
     public static String convertTimeToString(){
         Date date = Calendar.getInstance().getTime();
         SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm", Locale.ENGLISH);
         return timeFormat.format(date);
     }
 
+    /**
+     * Converts String of date to a date object
+     * @param date String
+     * @return Date
+     */
     public static Date convertStringToDate(String date){
         SimpleDateFormat format = new SimpleDateFormat("EEE, MMM d, yyyy", Locale.ENGLISH);
         try{
@@ -97,6 +115,12 @@ public class StringProcessor {
         }
         return null;
     }
+
+    /**
+     * Converts String of time to a date object
+     * @param time String
+     * @return Date
+     */
     public static Date convertStringToTime(String time){
         SimpleDateFormat format = new SimpleDateFormat("HH:mm", Locale.ENGLISH);
         try{

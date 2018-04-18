@@ -1,6 +1,5 @@
 package com.medmanager.android.presenter.utils;
 
-import android.os.Bundle;
 
 import com.medmanager.android.model.storage.MedInfo;
 
@@ -26,6 +25,7 @@ public class MedsSingleton {
     private MedsSingleton() {
     }
 
+
     public void setAllMedArrayList(List<MedInfo> infos){
 
         mInfos = infos;
@@ -43,11 +43,4 @@ public class MedsSingleton {
         this.activeMedInfo = activeMedInfo;
     }
 
-    public void setPrevCount(int prevCount) {
-        this.prevCount = prevCount;
-    }
-
-    public int getPrevCount() {
-        return prevCount;
-    }
 }

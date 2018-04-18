@@ -22,34 +22,43 @@ import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by ILENWABOR DAVID on 07/04/2018.
+ * Presenter for the Active Medications Fragment
  */
 
 public class ActiveMedFragmentPresenter {
     private Disposable mDisposable;
-    private Observer<List<MedInfo>> listObserver;
+    private Observer<List<MedInfo>> mListObserver;
 
-    ActiveMedicationFragment mFragment;
+    private ActiveMedicationFragment mFragment;
 
     @Inject
     AllMedicationsDataManager dataManager;
 
-    private Context context;
+    private Context mContext;
 
     public ActiveMedFragmentPresenter(){
 
     }
     public ActiveMedFragmentPresenter(Context context){
 
-        this.context = context;
+        this.mContext = context;
     }
 
+
+    /**
+     * Method to set the fragment
+     * @param activeMedicationFragment ActiveMedicationFragment
+     */
     public void setFragment(ActiveMedicationFragment activeMedicationFragment){
         this.mFragment = activeMedicationFragment;
     }
 
 
+    /**
+     * Method to reload all active medications
+     */
     public void loadActiveMedications(){
-        listObserver = new Observer<List<MedInfo>>(){
+        mListObserver = new Observer<List<MedInfo>>(){
 
 
             @Override
@@ -63,7 +72,6 @@ public class ActiveMedFragmentPresenter {
                     if (medInfos.isEmpty()) mFragment.setEmptyActiveMedsView();
                     else if (mFragment!=null){
                         mFragment.showActiveMedications(medInfos);
-                        Log.v("TAG", "From subscriber we have " + medInfos.get(medInfos.size()-1).getMedicationName());
                     }
                 }
 
@@ -83,15 +91,17 @@ public class ActiveMedFragmentPresenter {
             Observable.fromArray(MedsSingleton.getInstance().getActiveMedInfo())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribeOn(Schedulers.io())
-                    .subscribe(listObserver);
-            Log.v("TAG", "Flowable Instance returns "+ MedsSingleton.getInstance().getActiveMedInfo().toString());
+                    .subscribe(mListObserver);
         }
         else{
-            new ActiveMedicationsDataManager(context).requeryActiveMedications();
+            new ActiveMedicationsDataManager(mContext).requeryActiveMedications();
         }
 
     }
+
+    /**
+     * Method to detach fragment
+     */
     public void detachFragment(){
-        //if (mDisposable!=null) mDisposable.dispose();
     }
 }
