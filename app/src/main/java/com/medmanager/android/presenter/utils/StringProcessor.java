@@ -1,8 +1,6 @@
 package com.medmanager.android.presenter.utils;
 
-import android.util.Log;
 
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -15,6 +13,8 @@ import java.util.Locale;
  */
 
 public class StringProcessor {
+
+
 
     public static int processString(String string){
         StringBuilder stringBuilder = new StringBuilder(string);
@@ -33,11 +33,51 @@ public class StringProcessor {
         return dateFormat.format(date);
     }
 
+    public static String displayNotifDescription(String medName, String dosageNumber, String medicationType){
+        if(!dosageNumber.isEmpty())
+        switch (medicationType) {
+            case "Pills":
+                if (Integer.parseInt(dosageNumber)>1)
+                    return "Take " + dosageNumber + " " + medicationType + " of " + medName;
+                else
+                    return "Take " + dosageNumber + " pill of " + medName;
+            case "Injection":
+                if (Integer.parseInt(dosageNumber)>1)
+                    return "Take " + dosageNumber + " shots of " + medName;
+                else
+                    return "Take " + dosageNumber + " shot of " + medName;
+            case "Syrup":
+                if (Integer.parseInt(dosageNumber)>1)
+                    return "Take " + dosageNumber + " spoons of " + medName;
+                else
+                    return "Take " + dosageNumber + " spoon of " + medName;
+        }
+
+        return "";
+    }
+
     public static String convertIntToMonthString(int monthType){
         Date date = new Date(0, monthType + 1, 0);
         SimpleDateFormat dateFormat = new SimpleDateFormat("LLLL", Locale.getDefault());
-        Log.v("TAG", "Month saved is " + dateFormat.format(date) );
+        //Log.v("TAG", "Month saved is " + dateFormat.format(date) );
         return dateFormat.format(date);
+    }
+    public static int convertStringToMonthInt(String monthName){
+        switch(monthName){
+            case "January": return 1;
+            case "February": return 2;
+            case "March": return 3;
+            case "April": return 4;
+            case "May": return 5;
+            case "June": return 6;
+            case "July": return 7;
+            case "August": return 8;
+            case "September": return 9;
+            case "October": return 10;
+            case "November": return 11;
+            case "December": return 12;
+            default: return 15;
+        }
     }
 
     public static String convertTimeToString(){

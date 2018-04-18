@@ -1,6 +1,7 @@
 package com.medmanager.android.views.fragments;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 
 import com.medmanager.android.R;
 import com.medmanager.android.model.storage.MedInfo;
+import com.medmanager.android.presenter.services.NotificationDispatcherService;
 import com.medmanager.android.presenter.utils.MedsSingleton;
 import com.medmanager.android.presenter.utils.RecyclerViewItemDivider;
 import com.medmanager.android.presenter.viewpresenters.ViewPresenterInterface;
@@ -25,7 +27,7 @@ public class AllMedicationFragment extends BaseFragment implements ViewPresenter
 
     private RecyclerView mAllCategoryRecyclerView;
     private TextView emptyTextView;
-    //private MonthCategoryAdapter monthCategoryAdapter;
+
 
     public AllMedicationFragment(){
 
@@ -41,7 +43,7 @@ public class AllMedicationFragment extends BaseFragment implements ViewPresenter
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_all_meds, container, false);
         mAllCategoryRecyclerView = view.findViewById(R.id.recycler_view_all_category);
         emptyTextView = view.findViewById(R.id.text_empty_view);
@@ -49,6 +51,7 @@ public class AllMedicationFragment extends BaseFragment implements ViewPresenter
         mAllCategoryRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mAllCategoryRecyclerView.addItemDecoration(new RecyclerViewItemDivider(getContext()));
         allMedicationAdapter.setMedInfo(MedsSingleton.getInstance().getAllMedicationsInfo());
+        //NotificationDispatcherService.showMedInfoOnNotification(getContext(), MedsSingleton.getInstance().getAllMedicationsInfo());
         mAllCategoryRecyclerView.setAdapter(allMedicationAdapter);
         return view;
     }

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -22,6 +23,7 @@ import com.medmanager.android.presenter.utils.StringProcessor;
 import com.medmanager.android.views.fragments.DatePickerFragment;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import javax.inject.Inject;
 
@@ -36,8 +38,12 @@ public class AddMedicationActivity extends BaseActivity{
     private Spinner mSpinner;
     private TextView mStartDatePickerTextView, mStartTimePickerTextView, mEndDatePickerTextView, mEndTimePickerTextView, mIntervalTextView;
 
+    private Bundle mBundle;
+
     private boolean isSwitchChecked;
     private String spinnerMedicationType;
+
+    private MedInfo medInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,13 +80,24 @@ public class AddMedicationActivity extends BaseActivity{
 
         isSwitchChecked = mMedicationStartedSwitch.isChecked();
 
+        mBundle = getIntent().getExtras();
+        if (mBundle!=null && mBundle.getString("UpdateMed")!=null){
+            updateViews(mBundle.getString("UpdateMed"));
+            //Log.v("TAG", "passed medinfo object is " + mBundle.getString("Update"));
+        }
+
 
 
         mAddMedicationButton.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        saveMedicationToRoom();
+                        if (mBundle!=null && mBundle.getString("UpdateMed")!=null){
+
+                            updateMedicationToRoom();
+                        }else{
+                            saveMedicationToRoom();
+                        }
                         startActivity(new Intent(AddMedicationActivity.this, MainActivity.class));
                         finish();
                     }
@@ -163,9 +180,49 @@ public class AddMedicationActivity extends BaseActivity{
 
     }
 
+
+
+
+    /**
+     *This method is used to update the views with values from the AboutMedicationActivity
+     **/
+    private void updateViews(String update) {
+        medInfo = MedInfo.create(update);
+        mAddMedicationButton.setText("Update");
+        mMedNameEditText.setText(medInfo.getMedicationName());
+        mMedDescriptionEditText.setText(medInfo.getMedicationDescription());
+        mMedicationStartedSwitch.setChecked(medInfo.isMedicationStarted());
+        mStartDatePickerTextView.setText(medInfo.getStartDate());
+        mEndDatePickerTextView.setText(medInfo.getEndDate());
+        mStartTimePickerTextView.setText(medInfo.getStartTime());
+        mEndTimePickerTextView.setText(medInfo.getEndTime());
+        mFrequencyEditText.setText(medInfo.getDoseNumber());
+        mIntervalTextView.setText(String.valueOf(medInfo.getMedicationInterval()));
+        ArrayList arrayList = new ArrayList();
+        Collections.addAll(arrayList, getResources().getStringArray(R.array.spinner_array));
+        mSpinner.setSelection(arrayList.indexOf(medInfo.getMedicationType()));
+        mMedicationStartedSwitch.setChecked(medInfo.isMedicationStarted());
+    }
+
+    //this method updates the medication information in the database
+    private void updateMedicationToRoom() {
+        updateMedicationToDatabase.updateMedToRoomDatabase(this, mMedNameEditText.getText().toString(),
+                mMedDescriptionEditText.getText().toString(),
+                mStartDatePickerTextView.getText().toString(),
+                mStartTimePickerTextView.getText().toString(),
+                mEndDatePickerTextView.getText().toString(),
+                mEndTimePickerTextView.getText().toString(),
+                interfaceDataManager.getStartMonth(),
+                mFrequencyEditText.getText().toString(),
+                interfaceDataManager.getMedInterval(),
+                isSwitchChecked,
+                spinnerMedicationType,
+                medInfo);
+    }
+
     //This method saves the medication information to the database
     private void saveMedicationToRoom() {
-        saveMedicationToDatabase.saveMedToRoomDatabase(mMedNameEditText.getText().toString(),
+        saveMedicationToDatabase.saveMedToRoomDatabase(this, mMedNameEditText.getText().toString(),
                 mMedDescriptionEditText.getText().toString(),
                 mStartDatePickerTextView.getText().toString(),
                 mStartTimePickerTextView.getText().toString(),
@@ -177,6 +234,9 @@ public class AddMedicationActivity extends BaseActivity{
                 isSwitchChecked,
                 spinnerMedicationType
         );
+
     }
+
+
 
 }

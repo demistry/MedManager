@@ -2,18 +2,14 @@ package com.medmanager.android.presenter.utils;
 
 import android.content.Context;
 import android.os.AsyncTask;
-import android.util.Log;
-import android.widget.Toast;
 
 import com.medmanager.android.DaggerApplication;
 import com.medmanager.android.model.datamanagers.ActiveMedicationsDataManager;
 import com.medmanager.android.model.datamanagers.AllMedicationsDataManager;
-import com.medmanager.android.model.di.MedComponent;
 import com.medmanager.android.model.storage.MedInfo;
 import com.medmanager.android.model.storage.MedicationDAO;
 import com.medmanager.android.presenter.AlarmSetter;
 import com.medmanager.android.presenter.services.NotificationDispatcherService;
-import com.medmanager.android.presenter.viewpresenters.NotificationPresenter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,15 +17,12 @@ import java.util.List;
 import javax.inject.Inject;
 
 /**
- * Created by ILENWABOR DAVID on 02/04/2018.
+ * Created by ILENWABOR DAVID on 13/04/2018.
  */
 
-public class SaveMedicationToDatabase {
-
-
-//    @Inject
+public class UpdateMedicationToDatabase {
     static MedInfo medInfo;
-//    @Inject
+    //    @Inject
     static List<MedInfo> medInfoList;
     @Inject
     MedicationDAO medicationDAO;
@@ -42,11 +35,11 @@ public class SaveMedicationToDatabase {
 
     private static MedicationDAO asyncMedDao;
     private static List<MedInfo> asyncMedInfo;
-    private final ShowNotificationForMedInterface medInterface = notificationDispatcherService;
+    private final SaveMedicationToDatabase.ShowNotificationForMedInterface medInterface = notificationDispatcherService;
     private Context mContext;
 
 
-    public SaveMedicationToDatabase(Context context){
+    public UpdateMedicationToDatabase(Context context){
         mContext = context;
         ((DaggerApplication)context).getMyApplicationComponent().inject(this);
         asyncMedDao = medicationDAO;
@@ -54,8 +47,11 @@ public class SaveMedicationToDatabase {
         medInfo = new MedInfo();
         medInfoList = new ArrayList<>();
     }
-    public void saveMedToRoomDatabase(Context context, String medName, String medDescription, String startDate, String startTime, String endDate, String endTime,
-                                      int monthType, String doseNumber, int interval, boolean isMedStarted, String medicationType){
+
+    /**
+     * This method deletes a previous medication information and inserts a new one in its place**/
+    public void updateMedToRoomDatabase(Context context, String medName, String medDescription, String startDate, String startTime, String endDate, String endTime,
+                                      int monthType, String doseNumber, int interval, boolean isMedStarted, String medicationType, MedInfo prevMedInfo){
         medInfo.setMedicationName(medName);
         medInfo.setMedicationDescription(medDescription);
         medInfo.setStartDate(startDate);
@@ -67,7 +63,8 @@ public class SaveMedicationToDatabase {
         medInfo.setMedicationInterval(interval);
         medInfo.setMedicationStarted(isMedStarted);
         medInfo.setMedicationType(medicationType);
-        medInfo.setDosageCount(0); //start all dosage count from 0
+        AlertDialogCreator.cancelAlarm(context, prevMedInfo);
+        //medInfo.setDosageCount(0); //start all dosage count from 0
 
         medInfoList.add(medInfo);
         if (isMedStarted){
@@ -75,34 +72,30 @@ public class SaveMedicationToDatabase {
 //            NotificationPresenter.sendNotification(context, medInfo);
             AlarmSetter.setUpAlarm(context, medInfo);
         }
-        new SaveAsync().execute(medInfoList);
+
+        new UpdateAsync().execute(prevMedInfo, medInfo);
         dataManager.getAllMedications();
         activeMedicationsDataManager.requeryActiveMedications();
     }
 
 
 
-    private static class SaveAsync extends AsyncTask<List<MedInfo>, Void, List<MedInfo>>{
+    private static class UpdateAsync extends AsyncTask<MedInfo, Void, List<MedInfo>> {
 
 
         @Override
-        protected List<MedInfo> doInBackground(List<MedInfo>[] lists) {
-            asyncMedDao.insertMedInfo(lists[0].get(lists.length-1));
+        protected List<MedInfo> doInBackground(MedInfo... medInfos) {
+            asyncMedDao.deleteMedInfo(medInfos[0]);
+            asyncMedDao.insertMedInfo(medInfos[1]);
             return asyncMedDao.getAllMedications();
         }
 
         @Override
         protected void onPostExecute(List<MedInfo> medInfos) {
             super.onPostExecute(medInfos);
-//            Log.v("TAG", "Med Name is "+medInfos.get(0).getMedicationName());
-//            Log.v("TAG", "Med Name at pos 1 is "+medInfos.get(1).getMedicationName());
-//            Log.v("TAG", "Med Description is "+medInfos.get(0).getMedicationDescription());
-        }
-    }
+            MedsSingleton.getInstance().setAllMedArrayList(medInfos);
 
-    //This interface sets up the newly added item for a job
-    public interface ShowNotificationForMedInterface{
-        void dispatchJob(Context context, MedInfo medInfo);
+        }
     }
 
 }

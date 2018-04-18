@@ -8,7 +8,7 @@ import com.medmanager.android.R;
 
 /**
  * Created by ILENWABOR DAVID on 01/04/2018.
- * This class returns the viewholder object for the MonthCategoryAdapter
+ * This class returns the viewholder object for the MonthlyCategoryAdapter
  */
 
 public class MonthViewHolder extends RecyclerView.ViewHolder {

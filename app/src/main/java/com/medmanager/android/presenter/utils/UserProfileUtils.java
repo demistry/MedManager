@@ -3,6 +3,7 @@ package com.medmanager.android.presenter.utils;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
 import android.widget.Toast;
@@ -16,7 +17,9 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.auth.UserProfileChangeRequest;
 import com.medmanager.android.R;
 import com.medmanager.android.views.activities.MainActivity;
 import com.medmanager.android.views.activities.SignInActivity;
@@ -32,6 +35,7 @@ public class UserProfileUtils {
     //This method handles user sign up
     public static GoogleApiClient handleSignUp(Context context, GoogleApiClient.OnConnectionFailedListener listener){
         GoogleSignInOptions googleSignInOptions = buildGoogleSignIn(context);
+
         return new GoogleApiClient.Builder(context)
                 .enableAutoManage((FragmentActivity) context, listener)
                 .addApi(Auth.GOOGLE_SIGN_IN_API, googleSignInOptions)
@@ -44,9 +48,12 @@ public class UserProfileUtils {
         .addOnCompleteListener((Activity) context, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
-                Toast.makeText(context, "completed custom sign-in", Toast.LENGTH_SHORT).show();
-                context.startActivity(new Intent(context, MainActivity.class));
-                ((Activity) context).finish();
+                if(task.isSuccessful()){
+                    Toast.makeText(context, "completed custom sign-in", Toast.LENGTH_SHORT).show();
+                    context.startActivity(new Intent(context, MainActivity.class));
+                    ((Activity) context).finish();
+                }
+
 
                 if (!task.isSuccessful()){
                     Toast.makeText(context, "Login failed, check details", Toast.LENGTH_SHORT).show();
@@ -98,5 +105,24 @@ public class UserProfileUtils {
     }
 
 
+    public static void handleProfileEdit(final Context context, FirebaseAuth firebaseAuth, String displayName, Uri filePath) {
+        FirebaseUser user = firebaseAuth.getCurrentUser();
+        UserProfileChangeRequest profileChangeRequest = new UserProfileChangeRequest.Builder()
+                .setDisplayName(displayName)
+                .setPhotoUri(filePath)
+                .build();
+        if (user!=null){
+            user.updateProfile(profileChangeRequest)
+                    .addOnCompleteListener(
+                            new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful())
+                                        Toast.makeText(context, "Profile updated", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                    );
+        }
 
+    }
 }

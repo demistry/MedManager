@@ -81,6 +81,7 @@ public class SignInActivity extends BaseActivity implements GoogleApiClient.OnCo
             if (result.isSuccess()){
                 UserProfileUtils.linkToFireBase(this, result.getSignInAccount(), firebaseAuth);
                 startActivity(new Intent(this, MainActivity.class));
+                finish();
             }
             else{
                 Toast.makeText(this, "Google Sign-in failed", Toast.LENGTH_SHORT).show();

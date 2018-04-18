@@ -1,17 +1,22 @@
 package com.medmanager.android.presenter.adapter;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.medmanager.android.DaggerApplication;
 import com.medmanager.android.R;
+import com.medmanager.android.model.datamanagers.AdapterInterfaceDataManager;
 import com.medmanager.android.model.storage.MedInfo;
 import com.medmanager.android.presenter.holder.ActiveMedicationHolder;
-import com.medmanager.android.presenter.holder.AllMedicationHolder;
+import com.medmanager.android.presenter.utils.BindViewsUtils;
 import com.medmanager.android.presenter.utils.StringProcessor;
 
 import java.util.List;
+
+import javax.inject.Inject;
 
 /**
  * Created by ILENWABOR DAVID on 07/04/2018.
@@ -20,9 +25,14 @@ import java.util.List;
 public class ActiveMedicationsAdapter extends RecyclerView.Adapter<ActiveMedicationHolder> {
 
     private List<MedInfo> mMedInfos;
+    @Inject
+    AdapterInterfaceDataManager adapterInterfaceDataManager;
+    @Inject
+    Context context;
 
-    public ActiveMedicationsAdapter(){
 
+    public ActiveMedicationsAdapter(Context context){
+        ((DaggerApplication)context).getMyApplicationComponent().inject(this);
     }
 
     @Override
@@ -32,26 +42,16 @@ public class ActiveMedicationsAdapter extends RecyclerView.Adapter<ActiveMedicat
     }
 
     @Override
-    public void onBindViewHolder(ActiveMedicationHolder holder, int position) {
-        if (mMedInfos!=null){
-            holder.mMedName.setText(mMedInfos.get(position).getMedicationName());
-            String medType = mMedInfos.get(position).getMedicationType();
-            if (medType.equals("Pills")){
-                holder.mMedPillsNumber.setText(mMedInfos.get(position).getPillNumber() + " pills per intake");
-                holder.mMedTypeImage.setImageResource(R.drawable.ic_pill);
-            }
-            else if (medType.equals("Syrup")){
-                holder.mMedPillsNumber.setText(mMedInfos.get(position).getPillNumber() + " spoons per intake");
-                holder.mMedTypeImage.setImageResource(R.drawable.ic_syrup);
-            } else if (medType.equals("Injection")){
-                holder.mMedPillsNumber.setText(mMedInfos.get(position).getPillNumber() + " shots per intake");
-                holder.mMedTypeImage.setImageResource(R.drawable.ic_steroids);
-            }
-            holder.mMedAvatar.setText(StringProcessor.extractFirstLetter(mMedInfos.get(position).getMedicationName()));
-            holder.mMedStatusImage.setImageResource(R.drawable.ic_check_circle_black_24dp);
-            holder.mMedStatus.setText("On going");
-            holder.mMedInterval.setText(mMedInfos.get(position).getMedicationInterval() + " hours interval");
-        }
+    public void onBindViewHolder(final ActiveMedicationHolder holder, int position) {
+        BindViewsUtils.bindViews(holder, mMedInfos, position);
+        holder.relativeLayout.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        adapterInterfaceDataManager.onMedicationClicked(mMedInfos.get(holder.getAdapterPosition()),context);
+                    }
+                }
+        );
 
 
     }

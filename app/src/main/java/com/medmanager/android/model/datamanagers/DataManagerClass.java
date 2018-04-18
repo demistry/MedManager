@@ -16,11 +16,10 @@ public class DataManagerClass {
     MedicationDAO medicationDAO;
 
     public DataManagerClass(Context context){
+        if(context!=null)
         ((DaggerApplication)context.getApplicationContext()).getMyApplicationComponent().inject(this);
     }
-    public DataManagerClass(){
 
-    }
 
 
 

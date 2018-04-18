@@ -9,6 +9,8 @@
     >
 
 
+
+
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
@@ -18,7 +20,7 @@
         android:text="Reminder for:"
         android:gravity="center"
         android:textAlignment="center"
-        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
         android:paddingLeft="4dp"
         android:paddingRight="4dp"
         android:paddingTop="4dp"
@@ -44,11 +46,24 @@
         android:paddingRight="4dp"
         android:paddingTop="4dp"
         android:layout_toRightOf="@+id/textView" />
+    <ImageView
+        android:id="@+id/image_notif"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignTop="@id/textView"
+        android:layout_alignBottom="@id/textView"
+        android:paddingEnd="8dp"
+        android:paddingRight="8dp"
+        android:src="@drawable/ic_pill"
+        tools:ignore="RtlSymmetry" />
 
     <TextView
         android:id="@+id/text_notify_med_info"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
         android:layout_marginTop="8dp"
         android:text="TextView"
         android:paddingLeft="4dp"

@@ -49,7 +49,7 @@
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
         android:text="Description"/>
     <TextView
-        android:id="@+id/about_med_description"
+        android:id="@+id/text_about_med_description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/textview2"
@@ -65,7 +65,7 @@
         android:id="@+id/view_divider"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_below="@id/about_med_description"
+        android:layout_below="@id/text_about_med_description"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         android:background="@drawable/recycler_view_divider">
@@ -214,7 +214,7 @@
         android:layout_below="@id/view_divider3"
         android:textColor="@color/colorAccentSecondary"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
-        android:text="Dosage Count"/>
+        android:text="@string/dosage_count"/>
     <TextView
         android:id="@+id/text_about_dosage_count"
         android:layout_width="wrap_content"

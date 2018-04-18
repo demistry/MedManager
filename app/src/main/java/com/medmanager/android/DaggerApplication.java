@@ -16,7 +16,6 @@ public class DaggerApplication extends Application {
     public void onCreate() {
         super.onCreate();
         myApplicationComponent = DaggerMyApplicationComponent.builder().myApplicationModule(new MyApplicationModule(this)).build();
-        //medComponent = DaggerMyApplicationComponent.builder().medModule(new MedModule()).build();
         myApplicationComponent.inject(this);
     }
     public MyApplicationComponent getMyApplicationComponent(){

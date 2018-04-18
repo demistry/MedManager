@@ -1,23 +1,22 @@
 package com.medmanager.android.presenter.adapter;
 
 import android.content.Context;
-import android.os.AsyncTask;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.medmanager.android.DaggerApplication;
 import com.medmanager.android.R;
+import com.medmanager.android.model.datamanagers.AdapterInterfaceDataManager;
 import com.medmanager.android.model.storage.MedInfo;
-import com.medmanager.android.model.storage.MedicationDAO;
 import com.medmanager.android.presenter.holder.AllMedicationHolder;
+import com.medmanager.android.presenter.utils.BindViewsUtils;
 import com.medmanager.android.presenter.utils.StringProcessor;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.Nonnull;
 import javax.inject.Inject;
 
 /**
@@ -28,9 +27,14 @@ public class AllMedicationAdapter extends RecyclerView.Adapter<AllMedicationHold
 
 
 
+    @Inject
+    AdapterInterfaceDataManager adapterInterfaceDataManager;
+    @Inject
+    Context context;
     private List<MedInfo> mMedInfos;
 
-    public AllMedicationAdapter(){
+    public AllMedicationAdapter(Context context){
+        ((DaggerApplication)context).getMyApplicationComponent().inject(this);
     }
 
     @Override
@@ -40,34 +44,16 @@ public class AllMedicationAdapter extends RecyclerView.Adapter<AllMedicationHold
     }
 
     @Override
-    public void onBindViewHolder(AllMedicationHolder holder, int position) {
-        if (mMedInfos!=null){
-            holder.mMedName.setText(mMedInfos.get(position).getMedicationName());
-            holder.mMedAvatar.setText(StringProcessor.extractFirstLetter(mMedInfos.get(position).getMedicationName()));
-            String medType = mMedInfos.get(position).getMedicationType();
-            if (medType.equals("Pills")){
-                holder.mMedPillsNumber.setText(mMedInfos.get(position).getPillNumber() + " pills per intake");
-                holder.mMedTypeImage.setImageResource(R.drawable.ic_pill);
-            }
-            else if (medType.equals("Syrup")){
-                holder.mMedPillsNumber.setText(mMedInfos.get(position).getPillNumber() + " spoons per intake");
-                holder.mMedTypeImage.setImageResource(R.drawable.ic_syrup);
-            } else if (medType.equals("Injection")){
-                holder.mMedPillsNumber.setText(mMedInfos.get(position).getPillNumber() + " shots per intake");
-                holder.mMedTypeImage.setImageResource(R.drawable.ic_steroids);
-            }
-
-            if (mMedInfos.get(position).isMedicationStarted()){
-                holder.mMedStatusImage.setImageResource(R.drawable.ic_check_circle_black_24dp);
-                holder.mMedStatus.setText("On going");
-            }
-            else{
-                holder.mMedStatusImage.setImageResource(R.drawable.ic_warning_black_24dp);
-                holder.mMedStatus.setText("Not Started");
-            }
-            holder.mMedInterval.setText(mMedInfos.get(position).getMedicationInterval() + " hours interval");
-        }
-
+    public void onBindViewHolder(@Nonnull final AllMedicationHolder holder, final int position) {
+        BindViewsUtils.bindViews(holder, mMedInfos, position);
+        holder.relativeLayout.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        adapterInterfaceDataManager.onMedicationClicked(mMedInfos.get(holder.getAdapterPosition()),context);
+                    }
+                }
+        );
 
     }
 
@@ -82,6 +68,8 @@ public class AllMedicationAdapter extends RecyclerView.Adapter<AllMedicationHold
         this.mMedInfos = medInfos;
     }
 
-//    public interface
+    public interface MedicationClickedInterface{
+        void onMedicationClicked(MedInfo medInfo, Context context);
+    }
 
 }

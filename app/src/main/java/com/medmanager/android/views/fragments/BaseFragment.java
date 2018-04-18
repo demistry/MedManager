@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import com.medmanager.android.DaggerApplication;
 import com.medmanager.android.presenter.adapter.ActiveMedicationsAdapter;
 import com.medmanager.android.presenter.adapter.AllMedicationAdapter;
+import com.medmanager.android.presenter.adapter.MonthlyCategoryAdapter;
 import com.medmanager.android.presenter.utils.InterfaceDataManager;
 import com.medmanager.android.presenter.viewpresenters.ActiveMedFragmentPresenter;
 import com.medmanager.android.presenter.viewpresenters.AllMedFragmentPresenter;
@@ -32,6 +33,9 @@ public class BaseFragment extends Fragment {
     AllMedicationAdapter allMedicationAdapter;
     @Inject
     ActiveMedicationsAdapter mActiveMedicationsAdapter;
+
+    @Inject
+    MonthlyCategoryAdapter monthCategoryAdapter;
 
     @Inject
     AllMedFragmentPresenter allMedFragmentPresenter;

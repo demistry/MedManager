@@ -3,6 +3,7 @@ package com.medmanager.android.presenter.holder;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.medmanager.android.R;
@@ -14,6 +15,7 @@ import com.medmanager.android.R;
 public class AllMedicationHolder extends RecyclerView.ViewHolder {
     public TextView mMedName, mMedInterval, mMedPillsNumber, mMedStatus, mMedAvatar;
     public ImageView mMedStatusImage, mMedTypeImage;
+    public RelativeLayout relativeLayout;
 
     public AllMedicationHolder(View itemView) {
         super(itemView);
@@ -24,5 +26,6 @@ public class AllMedicationHolder extends RecyclerView.ViewHolder {
         mMedStatus = itemView.findViewById(R.id.text_med_status);
         mMedStatusImage = itemView.findViewById(R.id.image_med_status);
         mMedTypeImage = itemView.findViewById(R.id.image_med_type);
+        relativeLayout = itemView.findViewById(R.id.relative_layout_med_category);
     }
 }

@@ -1,8 +1,11 @@
 package com.medmanager.android.model.storage;
 
+import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
+
+import com.google.gson.Gson;
 
 import java.text.SimpleDateFormat;
 
@@ -10,14 +13,16 @@ import javax.inject.Inject;
 
 /**
  * Created by ILENWABOR DAVID on 31/03/2018.
+ * This class holds all the information about the medication as stored in the database columns
  */
 
-@Entity
+@Entity(tableName = "MedInfo")
 public class MedInfo {
 
     @PrimaryKey(autoGenerate = true)
     private int _id;
 
+    @ColumnInfo(name = "medName")
     private String medicationName;//
     private String medicationDescription;//
     private int monthType;//
@@ -27,15 +32,30 @@ public class MedInfo {
     private String endTime;//
 
 
-    private String pillNumber;
+    private String doseNumber;
     private String medicationType;//
     private int medicationInterval;
+
+    @ColumnInfo(name = "dosageCount")
+    private int dosageCount;
 
     private boolean isMedicationStarted;//
 
 
+
+
     public MedInfo(){
 
+    }
+
+    public String serialize(){
+        Gson gson = new Gson();
+        return gson.toJson(this);
+    }
+
+    public static MedInfo create(String serializedData){
+        Gson gson = new Gson();
+        return gson.fromJson(serializedData, MedInfo.class);
     }
 
     public String getMedicationName() {
@@ -54,8 +74,8 @@ public class MedInfo {
         return endDate;
     }
 
-    public String getPillNumber() {
-        return pillNumber;
+    public String getDoseNumber() {
+        return doseNumber;
     }
 
     public void setMedicationName(String medicationName) {
@@ -82,8 +102,8 @@ public class MedInfo {
         this.endDate = endDate;
     }
 
-    public void setPillNumber(String pillNumber) {
-        this.pillNumber = pillNumber;
+    public void setDoseNumber(String doseNumber) {
+        this.doseNumber = doseNumber;
     }
 
     public int getMedicationInterval() {
@@ -132,5 +152,13 @@ public class MedInfo {
 
     public void setMedicationType(String medicationType) {
         this.medicationType = medicationType;
+    }
+
+    public int getDosageCount() {
+        return dosageCount;
+    }
+
+    public void setDosageCount(int dosageCount) {
+        this.dosageCount = dosageCount;
     }
 }

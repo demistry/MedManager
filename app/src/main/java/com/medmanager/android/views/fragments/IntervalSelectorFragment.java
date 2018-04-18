@@ -53,7 +53,12 @@ public class IntervalSelectorFragment extends BaseFragment {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         String intervalText = getContext().getResources().getStringArray(R.array.interval_array)[position];
-                        int medInterval = StringProcessor.processString(intervalText);
+                        int medInterval;
+                        if(intervalText.equals("30 minutes")){
+                            medInterval = 30;
+                        }else{
+                            medInterval = StringProcessor.processString(intervalText);
+                        }
                         selectorInterface.intervalSelected(medInterval, intervalText);
                     }
                 }

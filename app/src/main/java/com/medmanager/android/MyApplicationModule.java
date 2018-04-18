@@ -3,11 +3,13 @@ package com.medmanager.android;
 import android.app.Activity;
 import android.arch.persistence.room.Room;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.medmanager.android.model.datamanagers.ActiveMedicationsDataManager;
+import com.medmanager.android.model.datamanagers.AdapterInterfaceDataManager;
 import com.medmanager.android.model.datamanagers.AllMedicationsDataManager;
 import com.medmanager.android.model.datamanagers.DataManagerClass;
 import com.medmanager.android.model.storage.MedInfo;
@@ -15,13 +17,19 @@ import com.medmanager.android.model.storage.MedicationDAO;
 import com.medmanager.android.model.storage.MedicationDatabase;
 import com.medmanager.android.presenter.adapter.ActiveMedicationsAdapter;
 import com.medmanager.android.presenter.adapter.AllMedicationAdapter;
+import com.medmanager.android.presenter.adapter.MonthlyCategoryAdapter;
+import com.medmanager.android.presenter.services.NotificationDispatcherService;
+import com.medmanager.android.presenter.utils.DeleteMedication;
 import com.medmanager.android.presenter.utils.InterfaceDataManager;
 import com.medmanager.android.presenter.utils.SaveMedicationToDatabase;
+import com.medmanager.android.presenter.utils.UpdateMedicationCount;
+import com.medmanager.android.presenter.utils.UpdateMedicationToDatabase;
 import com.medmanager.android.presenter.viewpresenters.ActiveMedFragmentPresenter;
 import com.medmanager.android.presenter.viewpresenters.AllMedFragmentPresenter;
 import com.medmanager.android.views.activities.BaseActivity;
 import com.medmanager.android.views.fragments.ActiveMedicationFragment;
 import com.medmanager.android.views.fragments.DatePickerFragment;
+import com.medmanager.android.views.fragments.EditProfileFragment;
 import com.medmanager.android.views.fragments.IntervalSelectorFragment;
 import com.medmanager.android.views.fragments.TimePickerFragment;
 
@@ -69,19 +77,41 @@ public class MyApplicationModule {
     SaveMedicationToDatabase providesMedication(){return new SaveMedicationToDatabase(daggerApplication);}
 
     @Provides @Singleton
+    DeleteMedication providesDeleteMed(){return new DeleteMedication(daggerApplication);}
+
+    @Provides @Singleton
+    UpdateMedicationToDatabase providesUpdateMedication(){return new UpdateMedicationToDatabase(daggerApplication);}
+
+    @Provides @Singleton
+    UpdateMedicationCount providesCount(){return new UpdateMedicationCount(daggerApplication);}
+
+    @Provides @Singleton
+    NotificationDispatcherService providesService(){return new NotificationDispatcherService(daggerApplication);}
+
+    @Provides @Singleton
     AllMedicationsDataManager providesAllMedsDataManager(){return new AllMedicationsDataManager(daggerApplication);}
+
+    @Provides @Singleton
+    AdapterInterfaceDataManager providesAdapterInterfaceDataManager(){return new AdapterInterfaceDataManager();}
 
     @Provides @Singleton
     ActiveMedicationsDataManager providesActiveMedsDataManager(){return new ActiveMedicationsDataManager(daggerApplication);}
 
     @Provides @Singleton
-    AllMedicationAdapter providesAllMeds(){return new AllMedicationAdapter();}
+    AllMedicationAdapter providesAllMeds(){return new AllMedicationAdapter(daggerApplication);}
 
     @Provides @Singleton
-    ActiveMedicationsAdapter providesActiveMedsAdapter(){return new ActiveMedicationsAdapter();}
+    ActiveMedicationsAdapter providesActiveMedsAdapter(){return new ActiveMedicationsAdapter(daggerApplication);}
+
+    @Provides @Singleton
+    MonthlyCategoryAdapter providesMonthlyCategory(){return new MonthlyCategoryAdapter(daggerApplication);}
 
     @Provides @Singleton
     DataManagerClass provideDataManager(){return new DataManagerClass(daggerApplication);}
+
+
+    @Provides @Singleton
+    SharedPreferences providesSharedPreferences(){ return daggerApplication.getSharedPreferences(ConstantClass.PREF_SHARED, Context.MODE_PRIVATE);}
 
 
 
@@ -105,6 +135,9 @@ public class MyApplicationModule {
 
     @Provides
     TimePickerFragment providesTimePickerFragment(){return new TimePickerFragment();}
+
+    @Provides
+    EditProfileFragment providesEditProfileFragment(){return new EditProfileFragment();}
 
     @Provides
     ActiveMedicationFragment providesActiveMedFragment(){return new ActiveMedicationFragment();}
