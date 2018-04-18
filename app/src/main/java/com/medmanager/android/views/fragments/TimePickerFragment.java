@@ -74,7 +74,6 @@ public class TimePickerFragment extends BaseFragment {
                         if (mFragmentType == 0)
                             timePickedInterface.timePicked(simpleDateFormat.format(mCalendar.getTime()),  mTimePicker.getCurrentHour(), mTimePicker.getCurrentMinute());
                         else timePickedInterface.endTimePicked(simpleDateFormat.format(mCalendar.getTime()), mTimePicker.getCurrentHour(), mTimePicker.getCurrentMinute());
-                        Toast.makeText(getContext(), "Time picked is "+ simpleDateFormat.format(mCalendar.getTime()), Toast.LENGTH_SHORT).show();
                         removeTimeFragmentInterface.timeFragmentRemoved();
                     }
                 }

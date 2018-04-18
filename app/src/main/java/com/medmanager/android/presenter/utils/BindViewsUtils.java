@@ -21,9 +21,9 @@ public class BindViewsUtils {
 
     /**
      * Bind Views from medication holder to adapter
-     * @param holder /
-     * @param mMedInfos /
-     * @param position /
+     * @param holder
+     * @param mMedInfos
+     * @param position
      */
     public static void bindViews(AllMedicationHolder holder, List<MedInfo> mMedInfos, int position){
         if (mMedInfos!=null){
@@ -90,7 +90,7 @@ public class BindViewsUtils {
             if(doseNumber.equals("1"))
                 monthViewHolder.mMedPillsNumber.setText( doseNumber + " pill per intake");
             else
-                monthViewHolder.mMedPillsNumber.setText(String.format(Locale.getDefault(),"%s%d", doseNumber, R.string.descr_pill_intake));
+                monthViewHolder.mMedPillsNumber.setText( doseNumber + " pills per intake");
             monthViewHolder.mMedTypeImage.setImageResource(R.drawable.ic_pill);
         }
         else if (medType.equals("Syrup")){
@@ -98,7 +98,7 @@ public class BindViewsUtils {
             if(doseNumber.equals("1"))
                 monthViewHolder.mMedPillsNumber.setText(doseNumber + " spoon per intake");
             else
-                monthViewHolder.mMedPillsNumber.setText(String.format(Locale.getDefault(),"%s%d", doseNumber, R.string.descr_syrup_intake));
+                monthViewHolder.mMedPillsNumber.setText(doseNumber + " spoons per intake");
 
             monthViewHolder.mMedTypeImage.setImageResource(R.drawable.ic_syrup);
         } else if (medType.equals("Injection")){
@@ -106,9 +106,10 @@ public class BindViewsUtils {
             if(doseNumber.equals("1"))
                 monthViewHolder.mMedPillsNumber.setText(doseNumber + " shot per intake");
             else
-                monthViewHolder.mMedPillsNumber.setText(String.format(Locale.getDefault(),"%s%d", doseNumber, R.string.descr_injection_intake));
+                monthViewHolder.mMedPillsNumber.setText(doseNumber + " shots per intake");
             monthViewHolder.mMedTypeImage.setImageResource(R.drawable.ic_injection);
         }
+
         monthViewHolder.mMedAvatar.setText(StringProcessor.extractFirstLetter(monthlyMedsSections.get(position).getRow().getMedicationName()));
         if (monthlyMedsSections.get(position).getRow().isMedicationStarted()){
             monthViewHolder.mMedStatusImage.setImageResource(R.drawable.ic_check_circle_black_24dp);
@@ -120,11 +121,11 @@ public class BindViewsUtils {
         }
         int interval = monthlyMedsSections.get(position).getRow().getMedicationInterval();
         if (interval == 30){
-            monthViewHolder.mMedInterval.setText(interval + R.string.minutes_interval);
+            monthViewHolder.mMedInterval.setText(interval + " minutes interval");
         } else
         if (interval == 1){
-            monthViewHolder.mMedInterval.setText(interval + R.string.one_hour_interval);
+            monthViewHolder.mMedInterval.setText(interval + " hour interval");
         } else
-            monthViewHolder.mMedInterval.setText(interval + R.string.time_interval);
+            monthViewHolder.mMedInterval.setText(interval + " hours interval");
     }
 }

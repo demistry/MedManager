@@ -58,4 +58,24 @@
     <string name="minutes">minutes</string>
     <string name="hour">hour</string>
     <string name="hours">hours</string>
+    <string name="name">Name</string>
+    <string name="aspirin">Aspirin</string>
+    <string name="description">Description</string>
+    <string name="from">From</string>
+    <string name="wed_5th_march">Wed, 5th, March</string>
+    <string name="to">To</string>
+    <string name="_17_51">17:51</string>
+    <string name="medication_type">Medication Type</string>
+    <string name="syrup">Syrup</string>
+    <string name="_0">0</string>
+    <string name="medication_taken_every">Medication taken every</string>
+    <string name="_30_minutes">30 minutes</string>
+    <string name="edit">EDIT</string>
+    <string name="medication_name">Medication Name</string>
+    <string name="medication_description">Medication Description</string>
+    <string name="started_medication">Started Medication</string>
+    <string name="start_date">Start Date</string>
+    <string name="enter_email">Enter Email</string>
+    <string name="enter_password">Enter Password</string>
+    <string name="login">Login</string>
 </resources>

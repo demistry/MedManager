@@ -16,18 +16,19 @@
         android:layout_alignParentLeft="true"
         android:textColor="@color/colorAccentSecondary"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
-        android:text="Name"/>
+        android:text="@string/name"/>
     <TextView
         android:id="@+id/text_about_med_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/textview1"
-        android:text="Aspirin"
+        android:text="@string/aspirin"
         android:paddingLeft="8dp"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
         android:textStyle="bold"
         android:textAllCaps="true"
-        android:paddingStart="8dp" />
+        android:paddingStart="8dp"
+        tools:ignore="RtlSymmetry" />
     <ImageView
         android:id="@+id/image_about_med_status"
         android:layout_width="wrap_content"
@@ -47,7 +48,7 @@
         android:layout_below="@id/text_about_med_name"
         android:textColor="@color/colorAccentSecondary"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
-        android:text="Description"/>
+        android:text="@string/description"/>
     <TextView
         android:id="@+id/text_about_med_description"
         android:layout_width="match_parent"
@@ -55,7 +56,6 @@
         android:layout_below="@id/textview2"
         android:gravity="fill"
         android:textAlignment="gravity"
-        android:text="This is useful in curing cough and other side diseases to make sure it is cool"
         android:paddingLeft="8dp"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
         android:paddingStart="8dp"
@@ -81,7 +81,7 @@
         android:layout_below="@id/view_divider"
         android:textColor="@color/colorAccentSecondary"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
-        android:text="From"/>
+        android:text="@string/from"/>
     <TextView
         android:id="@+id/about_med_start_date"
         android:layout_width="wrap_content"
@@ -89,7 +89,7 @@
         android:layout_below="@id/textview3"
         android:gravity="fill"
         android:textAlignment="gravity"
-        android:text="Wed, 5th, March"
+        android:text="@string/wed_5th_march"
         android:paddingLeft="8dp"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
         android:paddingStart="8dp"
@@ -101,7 +101,7 @@
         android:layout_centerHorizontal="true"
         android:layout_below="@id/view_divider"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
-        android:text="To"
+        android:text="@string/to"
         android:textColor="@color/colorAccentSecondary"/>
     <TextView
         android:id="@+id/about_med_end_date"
@@ -111,7 +111,7 @@
         android:layout_alignStart="@id/textview4"
         android:gravity="fill"
         android:textAlignment="gravity"
-        android:text="Wed, 5th, March"
+        android:text="@string/wed_5th_march"
         android:paddingLeft="8dp"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
         android:paddingStart="8dp"
@@ -126,7 +126,7 @@
         android:layout_alignEnd="@id/about_med_start_date"
         android:gravity="center"
         android:textAlignment="gravity"
-        android:text="17:51"
+        android:text="@string/_17_51"
         android:paddingLeft="8dp"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
         android:paddingStart="8dp"
@@ -142,7 +142,7 @@
         android:layout_alignEnd="@id/about_med_end_date"
         android:gravity="center"
         android:textAlignment="gravity"
-        android:text="17:51"
+        android:text="@string/_17_51"
         android:paddingLeft="8dp"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
         android:paddingStart="8dp"
@@ -171,7 +171,7 @@
         android:layout_below="@id/view_divider2"
         android:textColor="@color/colorAccentSecondary"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
-        android:text="Medication Type"/>
+        android:text="@string/medication_type"/>
     <TextView
         android:id="@+id/text_about_med_type"
         android:layout_width="wrap_content"
@@ -180,7 +180,7 @@
         android:layout_centerHorizontal="true"
         android:gravity="center"
         android:textAlignment="center"
-        android:text="Syrup"
+        android:text="@string/syrup"
         android:paddingLeft="8dp"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
         android:paddingStart="8dp"
@@ -223,7 +223,7 @@
         android:layout_centerHorizontal="true"
         android:gravity="center"
         android:textAlignment="center"
-        android:text="0"
+        android:text="@string/_0"
         android:paddingLeft="8dp"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
         android:paddingStart="8dp"
@@ -251,7 +251,8 @@
 
         android:src="@drawable/ic_indeterminate_check_box_black_24dp"
         android:layout_marginRight="12dp"
-        android:layout_marginEnd="12dp" />
+        android:layout_marginEnd="12dp"
+        android:layout_toStartOf="@id/text_about_dosage_count" />
     <View
         android:id="@+id/view_divider4"
         android:layout_width="match_parent"
@@ -272,7 +273,7 @@
         android:layout_below="@id/view_divider4"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
         android:textColor="@color/colorAccentSecondary"
-        android:text="Medication taken every"/>
+        android:text="@string/medication_taken_every"/>
     <TextView
         android:id="@+id/text_about_med_interval"
         android:layout_width="wrap_content"
@@ -281,7 +282,7 @@
         android:layout_centerHorizontal="true"
         android:gravity="center"
         android:textAlignment="center"
-        android:text="30 minutes"
+        android:text="@string/_30_minutes"
 
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
         />
@@ -292,7 +293,7 @@
         android:layout_width="match_parent"
         android:background="@drawable/item_sign_in_button_background"
         android:layout_gravity="bottom"
-        android:text="EDIT"
+        android:text="@string/edit"
         android:textColor="#fff"
         android:layout_marginBottom="8dp"
         android:layout_alignParentBottom="true"

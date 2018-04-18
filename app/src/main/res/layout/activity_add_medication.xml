@@ -15,7 +15,7 @@
 
 
             android:background="@drawable/item_edit_text_background"
-            android:hint="Medication Name"
+            android:hint="@string/medication_name"
             android:textColorHighlight="@color/colorAccent"
             android:pointerIcon="crosshair"
             android:padding="8dp"
@@ -27,7 +27,7 @@
             android:layout_marginTop="12dp"
             android:layout_below="@id/edit_text_medication_name"
             android:background="@drawable/item_edit_text_background"
-            android:hint="Medication Description"
+            android:hint="@string/medication_description"
             android:padding="8dp"
             />
 
@@ -42,7 +42,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
 
-                android:text="Started Medication"
+                android:text="@string/started_medication"
                 android:textStyle="bold"
                 android:gravity="center"/>
             <Switch
@@ -64,7 +64,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="Start Date"
+                android:text="@string/start_date"
                 android:gravity="center"/>
             <TextView
                 android:id="@+id/text_start_date_picker"

@@ -68,10 +68,10 @@ public class AlarmSetter {
         //getting instance of AlarmManager service
         sAlarmManagerElapsed = (AlarmManager)context.getSystemService(ALARM_SERVICE);
 
-        //We're setting alarm to fire notification after med duration, and every med interval there on
+        //We're setting alarm to fire notification after 5seconds, and every med interval there on
         if (sAlarmManagerElapsed !=null)
         sAlarmManagerElapsed.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,
-                System.currentTimeMillis() + REMINDER_INTERVAL_SECONDS,
+                50000,
                 REMINDER_INTERVAL_SECONDS, sAlarmIntentElapsed);
 
     }

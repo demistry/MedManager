@@ -26,7 +26,7 @@ public class SignInDialogFragment extends DialogFragment {
     private EditText mEmailEditText;
     private EditText mPassWordEditText;
     private Button mSignInButton;
-    private TextView mForgottenPassWordTextView;
+    //private TextView mForgottenPassWordTextView;
 
     private FirebaseAuth mFirebaseAuth;
 
@@ -49,7 +49,7 @@ public class SignInDialogFragment extends DialogFragment {
         View view = inflater.inflate(R.layout.dialog_fragment_sign_in, container, false);
         mEmailEditText = view.findViewById(R.id.edit_text_dialog_email);
         mPassWordEditText = view.findViewById(R.id.edit_text_dialog_password);
-        mForgottenPassWordTextView = view.findViewById(R.id.textview_dialog_sign_in);
+        //mForgottenPassWordTextView = view.findViewById(R.id.textview_dialog_sign_in);
         mSignInButton = view.findViewById(R.id.button_dialog_sign_in);
 
         mFirebaseAuth = FirebaseAuth.getInstance();

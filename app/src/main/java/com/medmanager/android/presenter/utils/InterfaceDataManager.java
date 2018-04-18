@@ -64,7 +64,6 @@ public class InterfaceDataManager implements DatePickedInterface, RemoveFragment
         bundle.putInt(ConstantClass.ARGUMENT_DATE, fragType);
         datePickerFragment.setArguments(bundle);
         mFragmentTransaction.add(R.id.layout_add_medication_root_layout, datePickerFragment);
-        mFragmentTransaction.setCustomAnimations(FragmentTransaction.TRANSIT_FRAGMENT_FADE, FragmentTransaction.TRANSIT_FRAGMENT_CLOSE);
         mFragmentTransaction.addToBackStack(null);
         mFragmentTransaction.commit();
     }
@@ -83,7 +82,6 @@ public class InterfaceDataManager implements DatePickedInterface, RemoveFragment
         bundle.putInt(ConstantClass.ARGUMENT_TIME, fragType);
         timePickerFragment.setArguments(bundle);
         mFragmentTransaction = appCompatActivity.getSupportFragmentManager().beginTransaction();
-        mFragmentTransaction.setCustomAnimations(FragmentTransaction.TRANSIT_FRAGMENT_FADE, FragmentTransaction.TRANSIT_FRAGMENT_CLOSE);
         mFragmentTransaction.add(R.id.layout_add_medication_root_layout, timePickerFragment);
         mFragmentTransaction.addToBackStack(null);
         mFragmentTransaction.commit();
@@ -99,7 +97,6 @@ public class InterfaceDataManager implements DatePickedInterface, RemoveFragment
         this.appCompatActivity = appCompatActivity;
         this.intervalSelectorFragment = intervalSelectorFragment;
         mFragmentTransaction = appCompatActivity.getSupportFragmentManager().beginTransaction();
-        mFragmentTransaction.setCustomAnimations(FragmentTransaction.TRANSIT_FRAGMENT_FADE, FragmentTransaction.TRANSIT_FRAGMENT_CLOSE);
         mFragmentTransaction.add(R.id.layout_add_medication_root_layout, intervalSelectorFragment);
         mFragmentTransaction.addToBackStack(null);
         mFragmentTransaction.commit();

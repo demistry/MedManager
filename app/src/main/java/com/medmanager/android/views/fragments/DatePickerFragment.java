@@ -61,7 +61,6 @@ public class DatePickerFragment extends BaseFragment {
                         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEE, MMM d, yyyy", Locale.ENGLISH);
                         if (mFragmentType ==0) mDatePickedInterface.datePicked(simpleDateFormat.format(mCalendar.getTime()),  mDatePicker.getMonth());
                         else mDatePickedInterface.EndDatePicked(simpleDateFormat.format(mCalendar.getTime()), mDatePicker.getMonth());
-                        Toast.makeText(getContext(), "Month picked is "+ mDatePicker.getMonth(), Toast.LENGTH_SHORT).show();
                         mRemoveFragmentInterface.fragmentRemoved();
                     }
                 }

@@ -14,7 +14,7 @@
         android:padding="4dp"
         android:background="@drawable/item_edit_text_background"
         android:layout_marginBottom="12dp"
-        android:hint="Enter Email"
+        android:hint="@string/enter_email"
         android:inputType="textEmailAddress"/>
     <EditText
         android:id="@+id/edit_text_dialog_password"
@@ -24,7 +24,7 @@
         android:background="@drawable/item_edit_text_background"
         android:layout_marginTop="12dp"
         android:layout_marginBottom="12dp"
-        android:hint="Enter Password"
+        android:hint="@string/enter_password"
         android:inputType="textPassword"/>
 
     <Button
@@ -33,18 +33,18 @@
         android:layout_height="40dp"
         android:background="@drawable/item_sign_in_button_background"
         android:layout_marginTop="32dp"
-        android:text="Login"
+        android:text="@string/login"
         android:textColor="@color/primaryText"/>
-    <TextView
-        android:id="@+id/textview_dialog_sign_in"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:clickable="true"
-        android:focusable="true"
-        android:textStyle="bold"
-        android:text="@string/forgotten_password"
+    <!--<TextView-->
+        <!--android:id="@+id/textview_dialog_sign_in"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginTop="8dp"-->
+        <!--android:clickable="true"-->
+        <!--android:focusable="true"-->
+        <!--android:textStyle="bold"-->
+        <!--android:text="@string/forgotten_password"-->
 
-        />
+        <!--/>-->
 
 </LinearLayout>
