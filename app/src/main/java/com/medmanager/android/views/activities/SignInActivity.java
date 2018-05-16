@@ -111,7 +111,7 @@ public class SignInActivity extends BaseActivity implements GoogleApiClient.OnCo
     public void handleEmailSignIn(View view) {
         SignInDialogFragment dialogFragment = new SignInDialogFragment();
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.setCustomAnimations(FragmentTransaction.TRANSIT_FRAGMENT_FADE, FragmentTransaction.TRANSIT_FRAGMENT_CLOSE);
+        //fragmentTransaction.setCustomAnimations(FragmentTransaction.TRANSIT_FRAGMENT_FADE, FragmentTransaction.TRANSIT_FRAGMENT_CLOSE);
         fragmentTransaction.add(R.id.sign_up_layout, dialogFragment,null);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();

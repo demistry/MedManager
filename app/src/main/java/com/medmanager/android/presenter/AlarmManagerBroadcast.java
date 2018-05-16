@@ -1,5 +1,6 @@
 package com.medmanager.android.presenter;
 
+import android.app.AlarmManager;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -7,6 +8,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.provider.Settings;
 import android.support.v4.app.NotificationCompat;
 import android.widget.RemoteViews;
@@ -69,6 +71,7 @@ public class AlarmManagerBroadcast extends BroadcastReceiver {
             if (mNotificationManager !=null)
                 mNotificationManager.notify(notificationTag,
                         0, mNotification);
+            //AlarmSetter.restartAlarm(context,medInfo);
         }
 
 
@@ -112,4 +115,6 @@ public class AlarmManagerBroadcast extends BroadcastReceiver {
         remoteViews.setOnClickPendingIntent(R.id.btn_increment_pills, pendingIntent);
         return remoteViews;
     }
+
+
 }

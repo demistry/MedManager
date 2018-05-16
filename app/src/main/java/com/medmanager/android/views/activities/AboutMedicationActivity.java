@@ -32,6 +32,8 @@ public class AboutMedicationActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about_medication);
+        if(getSupportActionBar()!=null)
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         mMedNameTextView = findViewById(R.id.text_about_med_name);
         mMedDescriptionTextView = findViewById(R.id.text_about_med_description);
         mMedStartDateTextView = findViewById(R.id.about_med_start_date);
